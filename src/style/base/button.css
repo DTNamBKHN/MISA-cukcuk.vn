@@ -53,3 +53,12 @@
     background-size: auto;
     background-position: center;
 }
+
+.btn-icon {
+    background-image: url('../../assets/icon/add.png');
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: 16px;
+    background-size: 20px;
+    padding-left: 44px;
+}

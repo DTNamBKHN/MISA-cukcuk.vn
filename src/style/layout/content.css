@@ -15,13 +15,23 @@
 }
 
 .paging-bar {
-    border-top: 1px solid #bbbbbb;
+    border-top: 5px solid #bbbbbb;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 16px;
-    z-index: 1 !important;
+    /* z-index: 1 !important; */
+}
+
+.paging-option{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paging-option img:hover{
+    cursor: pointer;
 }
 
 .btn-pagenumber.btn-pagenumber-selected, .btn-pagenumber-selected:hover {

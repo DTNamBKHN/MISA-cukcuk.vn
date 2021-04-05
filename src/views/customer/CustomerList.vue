@@ -3,7 +3,11 @@
     <div class="page-title">
       <div class="page-left">Danh sách khách hàng</div>
       <div class="page-right">
-        <button id="btnAdd" class="btn-default" @click="btnAddOnClick()">
+        <button
+          id="btnAdd"
+          class="btn-default btn-icon"
+          @click="btnAddOnClick()"
+        >
           Thêm khách hàng
         </button>
       </div>
@@ -12,7 +16,7 @@
       <input
         type="text"
         class="input-search"
-        style="width: 220px"
+        style="width: 264px"
         placeholder="Tìm kiếm theo mã, tên khách hàng"
       />
       <button class="btn-refresh"></button>
@@ -55,11 +59,15 @@
     <div class="paging">
       <div data-v-a72348a4="" class="paging-bar">
         <div data-v-a72348a4="" class="paging-record-info">
-          Hiển thị <b data-v-a72348a4="">1-10/1000</b> nhân viên
+          Hiển thị <b data-v-a72348a4="">1-10/1000</b> khách hàng
         </div>
         <div data-v-a72348a4="" class="paging-option">
-          <div data-v-a72348a4="" class="btn-select-page m-btn-firstpage"></div>
-          <div data-v-a72348a4="" class="btn-select-page m-btn-prev-page"></div>
+          <div data-v-a72348a4="" class="btn-select-page m-btn-firstpage">
+            <img src="../../assets/icon/btn-firstpage.svg" />
+          </div>
+          <div data-v-a72348a4="" class="btn-select-page m-btn-prev-page">
+            <img src="../../assets/icon/btn-prev-page.svg" />
+          </div>
           <div data-v-a72348a4="" class="m-btn-list-page">
             <button
               data-v-a72348a4=""
@@ -70,11 +78,15 @@
             ><button data-v-a72348a4="" class="btn-pagenumber">3</button
             ><button data-v-a72348a4="" class="btn-pagenumber">4</button>
           </div>
-          <div data-v-a72348a4="" class="btn-select-page m-btn-next-page"></div>
-          <div data-v-a72348a4="" class="btn-select-page m-btn-lastpage"></div>
+          <div data-v-a72348a4="" class="btn-select-page m-btn-next-page">
+            <img src="../../assets/icon/btn-next-page.svg" />
+          </div>
+          <div data-v-a72348a4="" class="btn-select-page m-btn-lastpage">
+            <img src="../../assets/icon/btn-lastpage.svg" />
+          </div>
         </div>
         <div data-v-a72348a4="" class="paging-record-option">
-          <b data-v-a72348a4="">10</b> nhân viên/trang
+          <b data-v-a72348a4="">10</b> khách hàng/trang
         </div>
       </div>
     </div>
@@ -87,8 +99,8 @@
   </div>
 </template>
 <script>
-import CustomerDetail from "./CustomerDetail.vue";
-import axios from "axios";
+import CustomerDetail from './CustomerDetail.vue';
+import axios from 'axios';
 export default {
   components: {
     CustomerDetail,
@@ -96,7 +108,7 @@ export default {
   created() {
     // load dữ liệu cho trang
     axios
-      .get("http://api.manhnv.net/api/customers")
+      .get('http://api.manhnv.net/api/customers')
       .then((res) => {
         console.log(res);
         this.customers = res.data;
@@ -107,17 +119,17 @@ export default {
   },
   props: [],
   methods: {
-      loadData(){
-          axios
-      .get("http://api.manhnv.net/api/customers")
-      .then((res) => {
-        console.log(res);
-        this.customers = res.data;
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-      },
+    loadData() {
+      axios
+        .get('http://api.manhnv.net/api/customers')
+        .then((res) => {
+          console.log(res);
+          this.customers = res.data;
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
     /**--------------------------------------
      * Hiển thị Dialog của cha
      * CreatedBy: NVMANH (31/03/2021)
@@ -140,7 +152,7 @@ export default {
 
       // Gọi Api lấy thông tin của khách hàng:
       axios
-        .get("http://api.manhnv.net/api/customers/" + customerId)
+        .get('http://api.manhnv.net/api/customers/' + customerId)
         .then((res) => {
           this.selectedCustomer = res.data;
           console.log(res);
@@ -150,14 +162,14 @@ export default {
         });
       // Thực hiện bindding dữ liệu lên form chi tiết:
       // Cập nhật trạng thái form:
-      this.dialogFormMode = "edit";
+      this.dialogFormMode = 'edit';
       // Hiển thị Dialog chi tiết:
       this.isShowDialogDetail = true;
     },
   },
   data() {
     return {
-      dialogFormMode: "add",
+      dialogFormMode: 'add',
       isShowDialogDetail: false,
       selectedCustomer: {},
       customers: [],

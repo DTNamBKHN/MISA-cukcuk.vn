@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import TheNavbar from "./components/layout/TheNavbar.vue";
-import TheHeader from "./components/layout/TheHeader.vue";
-import TheContent from "./components/layout/TheContent.vue";
+import TheNavbar from './components/layout/TheNavbar.vue';
+import TheHeader from './components/layout/TheHeader.vue';
+import TheContent from './components/layout/TheContent.vue';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     TheNavbar,
     TheHeader,
@@ -28,6 +28,8 @@ export default {
 @import './style/base/icon.css';
 @import './style/base/input.css';
 @import './style/base/table.css';
+@import './style/base/arrow.css';
+@import './style/base/dropdown.css';
 body {
   margin: 0;
 }
@@ -55,23 +57,23 @@ body {
 }
 
 @font-face {
-  font-family: "GoogleSans-Regular";
-  src: url("./assets/font/GoogleSans-Regular.otf") format("opentype");
+  font-family: 'GoogleSans-Regular';
+  src: url('./assets/font/GoogleSans-Regular.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "GoogleSans-Bold";
-  src: url("./assets/font/GoogleSans-Bold.otf") format("opentype");
+  font-family: 'GoogleSans-Bold';
+  src: url('./assets/font/GoogleSans-Bold.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "GoogleSans-Italic";
-  src: url("./assets/font/GoogleSans-Italic.otf") format("opentype");
+  font-family: 'GoogleSans-Italic';
+  src: url('./assets/font/GoogleSans-Italic.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "GoogleSans-BoldItalic";
-  src: url("./assets/font/GoogleSans-BoldItalic.otf") format("opentype");
+  font-family: 'GoogleSans-BoldItalic';
+  src: url('./assets/font/GoogleSans-BoldItalic.otf') format('opentype');
 }
 
 .bg-selected-row {
