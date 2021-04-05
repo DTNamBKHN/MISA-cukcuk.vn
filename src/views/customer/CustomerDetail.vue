@@ -17,21 +17,17 @@
           <div class="m-row">
             <div class="m-col">
               <label>Mã khách hàng</label>
-              <input
-                id="txtCustomerCode"
-                type="text"
-                v-model="customer.CustomerCode"
-              />
+              <input id="txtCustomerCode" type="text" />
             </div>
             <div class="m-col">
               <label>Họ và tên</label>
-              <input id="txtFullName" type="text" v-model="customer.FullName" />
+              <input id="txtFullName" type="text" />
             </div>
           </div>
           <div class="m-row">
             <div class="m-col">
               <label>Nhóm khách hàng</label>
-              <select id="cbCustomerGroup" v-model="customer.CustomerGroupId">
+              <select id="cbCustomerGroup">
                 <option value="0cb5da7c-59cd-4953-b17e-c9adc9161663">
                   Nhóm khách hàng MISA
                 </option>
@@ -50,7 +46,7 @@
           <div class="m-row">
             <div class="m-col">
               <label>Giới tính</label>
-              <select id="cbGender" v-model="customer.Gender">
+              <select id="cbGender">
                 <option value="1">Nam</option>
                 <option value="0">Nữ</option>
                 <option value="2">Không xác định</option>
@@ -58,25 +54,17 @@
             </div>
             <div class="m-col">
               <label>Ngày sinh</label>
-              <input
-                id="dtDateOfBirth"
-                type="date"
-                v-model="customer.DateOfBirth"
-              />
+              <input id="dtDateOfBirth" type="date" />
             </div>
           </div>
           <div class="m-row">
             <div class="m-col">
               <label>Số điện thoại</label>
-              <input
-                id="txtPhoneNumber"
-                type="text"
-                v-model="customer.PhoneNumber"
-              />
+              <input id="txtPhoneNumber" type="text" />
             </div>
             <div class="m-col">
               <label>Email</label>
-              <input id="txtEmail" type="text" v-model="customer.Email" />
+              <input id="txtEmail" type="text" />
             </div>
           </div>
         </div>
@@ -90,50 +78,20 @@
   </div>
 </template>
 <script>
-import axios from "../../../node_modules/axios";
 export default {
   props: {
     isShow: { type: Boolean, default: false },
-    customer: { type: Object, default: null },
-    formMode: { type: String, default: "add" },
+    formMode: { type: String, default: 'add' },
   },
   methods: {
-    /**--------------------------------------
-     * Gọi đến phương thức ẩn Dialog của cha
-     * CreatedBy: NVMANH (31/03/2021)
+    /**
+     * Gọi đến phương thức ẩn của cha
      */
     btnCloseOnClick() {
-      this.$emit("hideDialog");
+      this.$emit('hideDialog');
     },
-
-    btnSaveOnClick() {
-      if (this.formMode == "add") {
-        axios
-          .post("http://api.manhnv.net/api/customers", this.customer)
-          .then((res) => {
-            console.log(res);
-            this.$emit("hideDialog");
-          })
-          .catch((res) => {
-            console.log(res);
-          });
-      } else {
-        axios
-          .put(
-            "http://api.manhnv.net/api/customers/" + this.customer.CustomerId,
-            this.customer
-          )
-          .then((res) => {
-            console.log(res);
-            this.$emit("hideDialog");
-          })
-          .catch((res) => {
-            console.log(res);
-          });
-      }
-    },
+    btnSaveOnClick() {},
   },
 };
 </script>
-<style scoped>
-</style>
+<style scoped></style>

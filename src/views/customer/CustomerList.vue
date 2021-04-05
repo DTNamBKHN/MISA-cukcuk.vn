@@ -38,18 +38,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="customer in customers"
-            :key="customer.CustomerId"
-            @dblclick="trOnDblClick(customer.CustomerId)"
-          >
-            <td>{{ customer.CustomerCode }}</td>
-            <td>{{ customer.FullName }}</td>
-            <td>{{ customer.GenderName }}</td>
-            <td>{{ customer.DateOfBirth }}</td>
-            <td>{{ customer.CustomerGroupName }}</td>
-            <td>{{ customer.PhoneNumber }}</td>
-            <td>{{ customer.Email }}</td>
+          <tr @dblclick="trOnDblClick()">
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
             <td class="text-align-right">1.025.000</td>
             <td class="text-align-center"><input type="checkbox" checked /></td>
           </tr>
@@ -92,78 +88,34 @@
     </div>
     <CustomerDetail
       :isShow="isShowDialogDetail"
-      :customer="selectedCustomer"
       :formMode="dialogFormMode"
       @hideDialog="hideDialog"
-    />
+    ></CustomerDetail>
   </div>
 </template>
 <script>
 import CustomerDetail from './CustomerDetail.vue';
-import axios from 'axios';
 export default {
   components: {
     CustomerDetail,
   },
-  created() {
-    // load dữ liệu cho trang
-    axios
-      .get('http://api.manhnv.net/api/customers')
-      .then((res) => {
-        console.log(res);
-        this.customers = res.data;
-      })
-      .catch((res) => {
-        console.log(res);
-      });
-  },
+  created() {},
   props: [],
   methods: {
-    loadData() {
-      axios
-        .get('http://api.manhnv.net/api/customers')
-        .then((res) => {
-          console.log(res);
-          this.customers = res.data;
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-    },
-    /**--------------------------------------
-     * Hiển thị Dialog của cha
-     * CreatedBy: NVMANH (31/03/2021)
+    /**
+     * Hiển thị dialog
      */
     btnAddOnClick() {
-      this.selectedCustomer = {};
       this.isShowDialogDetail = true;
     },
-    /**--------------------------------------
-     *  ẩn Dialog chi tiết
-     * CreatedBy: NVMANH (31/03/2021)
+    /**
+     * Ẩn dialog
      */
     hideDialog() {
       this.isShowDialogDetail = false;
-      this.loadData();
     },
-
-    trOnDblClick(customerId) {
-      // Lấy id của bản ghi được chọn:
-
-      // Gọi Api lấy thông tin của khách hàng:
-      axios
-        .get('http://api.manhnv.net/api/customers/' + customerId)
-        .then((res) => {
-          this.selectedCustomer = res.data;
-          console.log(res);
-        })
-        .catch((res) => {
-          console.log(res);
-        });
-      // Thực hiện bindding dữ liệu lên form chi tiết:
-      // Cập nhật trạng thái form:
+    trOnDblClick() {
       this.dialogFormMode = 'edit';
-      // Hiển thị Dialog chi tiết:
       this.isShowDialogDetail = true;
     },
   },
@@ -171,8 +123,6 @@ export default {
     return {
       dialogFormMode: 'add',
       isShowDialogDetail: false,
-      selectedCustomer: {},
-      customers: [],
     };
   },
   watch: {},

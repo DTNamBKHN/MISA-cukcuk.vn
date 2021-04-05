@@ -9,18 +9,10 @@
         <div class="navbar-icon icon-dashboard"></div>
         <div class="navbar-text">Tổng quan</div>
       </a>
-      <!-- <a class="navbar-item">
-        <div class="navbar-icon icon-report"></div>
-        <div class="navbar-text">Báo cáo</div>
-      </a> -->
       <router-link class="navbar-item" to="/report">
         <div class="navbar-icon icon-report"></div>
         <div class="navbar-text">Báo cáo</div>
       </router-link>
-      <!-- <a class="navbar-item" href="#">
-        <div class="navbar-icon icon-dic-employee"></div>
-        <div class="navbar-text">Danh sách khách hàng</div>
-      </a> -->
       <router-link class="navbar-item" to="/customer">
         <div class="navbar-icon icon-dic-employee"></div>
         <div class="navbar-text">Danh sách khách hàng</div>
@@ -56,7 +48,7 @@
   flex-shrink: 0;
   width: 30px;
   height: 30px;
-  background-image: url("../../assets/img/toggle.png");
+  background-image: url('../../assets/img/toggle.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -67,7 +59,7 @@
   width: 100%;
   height: 30px;
   flex-shrink: 0;
-  background-image: url("../../assets/img/cukcuk-logo.png");
+  background-image: url('../../assets/img/cukcuk-logo.png');
   background-size: contain;
   background-position: left;
   background-repeat: no-repeat;
