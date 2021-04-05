@@ -2,15 +2,18 @@
   <div>
     <div id="header">
       <div class="header-left">
-        <div class="dropdown">
-          <button class="dropbtn">
-            Nhà hàng Biển Đông<i class="arrow down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="#">Nhà hàng Biển Bắc</a>
-            <a href="#">Nhà hàng Biển Nam</a>
-            <a href="#">Nhà hàng Biển Tây</a>
+        <div class="dropdown-box">
+          <div class="dropdown">
+            <button class="dropbtn">
+              Nhà hàng Biển Đông
+            </button>
+            <div class="dropdown-content">
+              <a href="#">Nhà hàng Biển Bắc</a>
+              <a href="#">Nhà hàng Biển Nam</a>
+              <a href="#">Nhà hàng Biển Tây</a>
+            </div>
           </div>
+          <div class="dropdown-icon"></div>
         </div>
       </div>
       <div class="header-right">
@@ -32,6 +35,11 @@
   height: 60px;
   top: 0;
   padding: 0 24px 0 24px;
+}
+
+.header-left {
+  position: absolute;
+  left: 24px;
 }
 
 .header-left .dropdown-btn a {

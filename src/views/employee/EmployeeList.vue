@@ -19,26 +19,34 @@
         style="width: 310px"
         placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại"
       />
-      <div class="dropdown">
-        <button class="dropbtn dropdown-room">
-          Tất cả phòng ban<span><i class="arrow down"></i></span>
-        </button>
-        <div class="dropdown-content">
-          <a href="#">Random text</a>
-          <a href="#">Random text</a>
-          <a href="#">Random text</a>
+      <div class="dropdown-box dropdown-box-room">
+        <div class="dropdown">
+          <button class="dropbtn">
+            Tất cả phòng ban
+          </button>
+          <div class="dropdown-content">
+            <a href="#">Random text</a>
+            <a href="#">Random text</a>
+            <a href="#">Random text</a>
+          </div>
         </div>
+        <div class="dropdown-icon"></div>
       </div>
-      <div class="dropdown">
-        <button class="dropbtn dropdown-position">
-          Tất cả vị trí<i class="arrow down"></i>
-        </button>
-        <div class="dropdown-content">
-          <a href="#">Random text</a>
-          <a href="#">Random text</a>
-          <a href="#">Random text</a>
+
+      <div class="dropdown-box dropdown-box-position">
+        <div class="dropdown">
+          <button class="dropbtn">
+            Tất cả vị trí
+          </button>
+          <div class="dropdown-content">
+            <a href="#">Random text</a>
+            <a href="#">Random text</a>
+            <a href="#">Random text</a>
+          </div>
         </div>
+        <div class="dropdown-icon"></div>
       </div>
+
       <button class="btn-refresh"></button>
       <button class="btn-delete"></button>
     </div>

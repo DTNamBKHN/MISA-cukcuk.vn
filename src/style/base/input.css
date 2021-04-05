@@ -1,4 +1,7 @@
-
+.toolbar{
+    position: absolute;
+    left: 24px;
+}
 
 input[type=text], input[type=date] {
     height: 40px;
