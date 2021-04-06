@@ -168,6 +168,7 @@ export default {
           .post('http://api.manhnv.net/v1/Employees', this.employee)
           .then((res) => {
             console.log(res);
+            this.$emit('hideDialog');
           })
           .catch((res) => {
             console.log(res);
@@ -180,6 +181,7 @@ export default {
           )
           .then((res) => {
             console.log(res);
+            this.$emit('hideDialog');
           })
           .catch((res) => {
             console.log(res);

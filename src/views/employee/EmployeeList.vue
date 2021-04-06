@@ -47,7 +47,7 @@
         <div class="dropdown-icon"></div>
       </div>
 
-      <button class="btn-refresh"></button>
+      <button class="btn-refresh" @click="loadData()"></button>
       <button class="btn-delete"></button>
     </div>
     <div class="grid">
@@ -154,6 +154,17 @@ export default {
   },
   props: [],
   methods: {
+    //load data
+    loadData() {
+      axios
+        .get('http://api.manhnv.net/v1/Employees')
+        .then((res) => {
+          this.employees = res.data;
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    },
     //Hien thi dialog
     btnAddOnClick() {
       this.selectedEmployee = {};
@@ -162,6 +173,7 @@ export default {
     //An dialog
     hideDialog() {
       this.isShowDialogDetail = false;
+      this.loadData();
     },
     //Xu ly du lieu ngay thang
     checkDate(date) {
