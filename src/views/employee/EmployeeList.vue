@@ -63,7 +63,7 @@
             <th>Chức vụ</th>
             <th>Phòng ban</th>
             <th>Mức lương cơ bản</th>
-            <th>Tình trạng công việc</th>
+            <th>Gia đình</th>
           </tr>
         </thead>
         <tbody>
@@ -84,7 +84,7 @@
             <td>{{ employee.PositionName }}</td>
             <td>{{ employee.DepartmentName }}</td>
             <td>{{ employee.Salary | formatNumber }}</td>
-            <td>{{ employee.WorkStatus }}</td>
+            <td>{{ employee.MartialStatusName }}</td>
           </tr>
         </tbody>
       </table>
@@ -126,6 +126,8 @@
     <EmployeeDetail
       :isShow="isShowDialogDetail"
       @hideDialog="hideDialog"
+      :employee="selectedEmployee"
+      :formMode="dialogFormMode"
     ></EmployeeDetail>
     <Warning></Warning>
   </div>
@@ -154,6 +156,7 @@ export default {
   methods: {
     //Hien thi dialog
     btnAddOnClick() {
+      this.selectedEmployee = {};
       this.isShowDialogDetail = true;
     },
     //An dialog
@@ -168,13 +171,30 @@ export default {
       return true;
     },
     trOnDblClick(employeeId) {
+      //Lay id cua ban ghi duoc chon
+
+      //Goi api lay thong tin nhan vien
+      axios
+        .get('http://api.manhnv.net/v1/Employees/' + employeeId)
+        .then((res) => {
+          this.selectedEmployee = res.data;
+          console.log(this.selectedEmployee);
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+      //Thuc hien binding du lieu len form chi tiet
+      //Cap nhat trang thai cua form
+      this.dialogFormMode = 'edit';
+      //Hien thi dialog chi tiet
       this.isShowDialogDetail = true;
     },
   },
   data() {
     return {
+      dialogFormMode: 'add',
       employees: [],
-      validateDate: false,
+      selectedEmployee: {},
       isShowDialogDetail: false,
     };
   },
