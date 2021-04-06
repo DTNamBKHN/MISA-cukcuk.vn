@@ -30,7 +30,7 @@
               <input
                 id="dtDateOfBirth"
                 type="date"
-                v-model="employee.FullName"
+                :value="format(employee.DateOfBirth)"
               /><br />
               <label
                 >Số CMTND/ Căn cước (<label style="color: red">*</label>)</label
@@ -59,7 +59,7 @@
               <input
                 id="participateDay"
                 type="date"
-                v-model="employee.JoinDate"
+                :value="format(employee.JoinDate)"
               /><br />
             </form>
           </div>
@@ -81,7 +81,7 @@
               <input
                 id="provideDate"
                 type="date"
-                v-model="employee.IdentityDate"
+                :value="format(employee.IdentifyDate)"
               /><br />
               <label style="visibility: hidden">Nơi cấp</label><br />
               <input style="visibility: hidden" type="text" /><br />
@@ -139,6 +139,7 @@
 </template>
 <script>
 import axios from 'axios';
+import moment from 'moment';
 export default {
   props: {
     isShow: { type: Boolean, default: false },
@@ -146,6 +147,16 @@ export default {
     formMode: { type: String, default: 'add' },
   },
   methods: {
+    //Xu ly hien thi du lieu ngay thang len dialog
+    checkDate(date) {
+      if (!date) {
+        return false;
+      }
+      return true;
+    },
+    format(value) {
+      return moment(value).format('YYYY-MM-DD');
+    },
     //Goi den phuong thuc hideDialog cua EmployeeList
     btnCloseOnClick() {
       this.$emit('hideDialog');
@@ -175,6 +186,9 @@ export default {
           });
       }
     },
+  },
+  data() {
+    return {};
   },
 };
 </script>

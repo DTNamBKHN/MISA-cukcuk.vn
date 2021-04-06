@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import moment from 'moment'
 import VueRouter from 'vue-router'
 
 import CustomerList from './views/customer/CustomerList.vue'
@@ -28,6 +29,12 @@ var numeral = require("numeral");
 Vue.filter("formatNumber", function (value) {
   return numeral(value).format("0,0"); // displaying other groupings/separators is possible, look at the docs
 });
+Vue.filter('formatDate', function(value) {
+  if (value) {
+    return moment(String(value)).format('YYYY-MM-DD')
+  }
+});
+  
 new Vue({
   router,
   render: h => h(App),
