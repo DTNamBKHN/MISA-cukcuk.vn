@@ -67,17 +67,24 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
+          <tr
+            v-for="employee in employees"
+            :key="employee.EmployeeId"
+            @dblclick="trOnDblClick(employee.EmployeeId)"
+          >
+            <td>{{ employee.EmployeeCode }}</td>
+            <td>{{ employee.FullName }}</td>
+            <td>{{ employee.GenderName }}</td>
+            <td v-if="checkDate(employee.DateOfBirth)">
+              {{ new Date(employee.DateOfBirth) | dateFormat('DD.MM.YYYY') }}
+            </td>
+            <td v-if="!checkDate(employee.DateOfBirth)">Không có dữ liệu</td>
+            <td>{{ employee.PhoneNumber }}</td>
+            <td>{{ employee.Email }}</td>
+            <td>{{ employee.PositionName }}</td>
+            <td>{{ employee.DepartmentName }}</td>
+            <td>{{ employee.Salary | formatNumber }}</td>
+            <td>{{ employee.WorkStatus }}</td>
           </tr>
         </tbody>
       </table>
@@ -116,27 +123,60 @@
         </div>
       </div>
     </div>
-    <EmployeeDetail :isShow="isShowDialogDetail"></EmployeeDetail>
+    <EmployeeDetail
+      :isShow="isShowDialogDetail"
+      @hideDialog="hideDialog"
+    ></EmployeeDetail>
     <Warning></Warning>
   </div>
 </template>
 <script>
 import EmployeeDetail from './EmployeeDetail.vue';
 import Warning from '../warning/Warning.vue';
+import axios from 'axios';
 export default {
   components: {
     EmployeeDetail,
     Warning,
   },
-  created() {},
+  created() {
+    //load du lieu cho trang
+    axios
+      .get('http://api.manhnv.net/v1/Employees')
+      .then((res) => {
+        this.employees = res.data;
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  },
   props: [],
   methods: {
+    //Hien thi dialog
     btnAddOnClick() {
+      this.isShowDialogDetail = true;
+    },
+    //An dialog
+    hideDialog() {
+      this.isShowDialogDetail = false;
+    },
+    //Xu ly du lieu ngay thang
+    checkDate(date) {
+      if (!date) {
+        return false;
+      }
+      return true;
+    },
+    trOnDblClick(employeeId) {
       this.isShowDialogDetail = true;
     },
   },
   data() {
-    return { isShowDialogDetail: false };
+    return {
+      employees: [],
+      validateDate: false,
+      isShowDialogDetail: false,
+    };
   },
 };
 </script>

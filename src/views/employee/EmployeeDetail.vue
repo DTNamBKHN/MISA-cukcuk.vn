@@ -1,11 +1,17 @@
 <template>
   <div>
-    <div id="dlgEmployeeDetail" class="dialog dialog-hide">
+    <div
+      id="dlgEmployeeDetail"
+      class="dialog"
+      :class="{ 'dialog-hide': !isShow }"
+    >
       <div class="model"></div>
       <div class="dialog-content">
         <div class="dialog-header">
           <div class="dialog-title">THÔNG TIN NHÂN VIÊN</div>
-          <div class="dialog-close-button">&#x2715;</div>
+          <div class="dialog-close-button" @click="btnCloseOnClick()">
+            &#x2715;
+          </div>
         </div>
         <div class="dialog-body">
           <div class="left-body">
@@ -97,6 +103,12 @@
 <script>
 export default {
   props: { isShow: { type: Boolean, default: false } },
+  methods: {
+    //Goi den phuong thuc hideDialog cua EmployeeList
+    btnCloseOnClick() {
+      this.$emit('hideDialog');
+    },
+  },
 };
 </script>
 <style scoped></style>
