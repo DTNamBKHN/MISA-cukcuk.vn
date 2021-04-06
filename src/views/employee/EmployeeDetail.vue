@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="dlgEmployeeDetail" class="dialog dialog-hide">
-      <div class="model">Hello</div>
+      <div class="model"></div>
       <div class="dialog-content">
         <div class="dialog-header">
           <div class="dialog-title">THÔNG TIN NHÂN VIÊN</div>
@@ -85,8 +85,10 @@
           </div>
         </div>
         <div class="dialog-footer">
-          <button id="btnSave" class="btn-default btn-icon destroy">Hủy</button>
-          <button id="btnDestroy" class="btn-default btn-icon save">Lưu</button>
+          <button id="btnDestroy" class="btn-default btn-icon destroy">
+            Hủy
+          </button>
+          <button id="btnSave" class="btn-default btn-icon save">Lưu</button>
         </div>
       </div>
     </div>

@@ -117,13 +117,16 @@
       </div>
     </div>
     <EmployeeDetail :isShow="isShowDialogDetail"></EmployeeDetail>
+    <Warning></Warning>
   </div>
 </template>
 <script>
 import EmployeeDetail from './EmployeeDetail.vue';
+import Warning from '../warning/Warning.vue';
 export default {
   components: {
     EmployeeDetail,
+    Warning,
   },
   created() {},
   props: [],

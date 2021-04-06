@@ -18,7 +18,8 @@
         left: 50%;
         transform: translate(-50%,-50%);
         width: 600px;
-        height: 650px;
+        min-height: 650px;
+        overflow: hidden;
         border-radius: 4px;
         background-color: #ffffff;
         padding-bottom: 80px;
@@ -198,4 +199,14 @@
         background-image: url('../../assets/icon/add.png');
         position: absolute;
         right: 24px;
+    }
+
+    .dialog-footer .delete {
+        background-color: rgb(236, 100, 100);
+        position: absolute;
+        right: 24px;
+    }
+
+    .dialog-footer .delete:hover {
+        background-color: #f50808;
     }
