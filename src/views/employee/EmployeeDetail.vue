@@ -28,15 +28,9 @@
               <input type="text" v-model="employee.EmployeeCode" /><br />
               <label>Ngày sinh</label><br />
               <input
-                v-if="checkDate(employee.DateOfBirth)"
                 id="dtDateOfBirth"
                 type="date"
-                :value="format(employee.DateOfBirth)"
-              /><input
-                v-if="!checkDate(employee.DateOfBirth)"
-                id="dtDateOfBirth"
-                type="date"
-                value=""
+                v-model="employee.DateOfBirth"
               />
               <br />
               <label
@@ -64,16 +58,9 @@
               <input type="text" v-model="employee.PersonalTaxCode" /><br />
               <label>Ngày gia nhập công ty</label><br />
               <input
-                v-if="!checkDate(employee.JoinDate)"
                 id="participateDay"
                 type="date"
-                value=""
-              />
-              <input
-                v-if="checkDate(employee.JoinDate)"
-                id="participateDay"
-                type="date"
-                :value="format(employee.JoinDate)"
+                v-model="employee.JoinDate"
               /><br />
             </form>
           </div>
@@ -93,16 +80,9 @@
               ><br />
               <label>Ngày cấp</label><br />
               <input
-                v-if="!checkDate(employee.IdentifyDate)"
                 id="provideDate"
                 type="date"
-                value=""
-              />
-              <input
-                v-if="checkDate(employee.IdentifyDate)"
-                id="provideDate"
-                type="date"
-                :value="format(employee.IdentifyDate)"
+                v-model="employee.IdentifyDate"
               /><br />
               <label style="visibility: hidden">Nơi cấp</label><br />
               <input style="visibility: hidden" type="text" /><br />
