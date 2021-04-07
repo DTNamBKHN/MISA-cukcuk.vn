@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @mouseover="focusOnEmployeeCode">
     <div
       id="dlgEmployeeDetail"
       class="dialog"
@@ -26,6 +26,7 @@
               <label>Mã nhân viên (<label style="color: red">*</label>)</label
               ><br />
               <input
+                ref="employeeCode"
                 type="text"
                 v-model="employee.EmployeeCode"
                 required
@@ -174,6 +175,11 @@ export default {
     formMode: { type: String, default: 'add' },
   },
   methods: {
+    focusOnEmployeeCode() {
+      this.$nextTick(function() {
+        this.$refs.employeeCode.focus();
+      });
+    },
     //Xu ly hien thi du lieu ngay thang len dialog
     checkDate(date) {
       if (!date) {
