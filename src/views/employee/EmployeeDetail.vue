@@ -25,7 +25,11 @@
               <label class="body-title">A. THÔNG TIN CHUNG</label><br />
               <label>Mã nhân viên (<label style="color: red">*</label>)</label
               ><br />
-              <input type="text" v-model="employee.EmployeeCode" /><br />
+              <input
+                type="text"
+                v-model="employee.EmployeeCode"
+                required
+              /><br />
               <label>Ngày sinh</label><br />
               <input
                 id="dtDateOfBirth"
@@ -35,12 +39,24 @@
               <br />
               <label
                 >Số CMTND/ Căn cước (<label style="color: red">*</label>)</label
+              >
+              <span :class="{ 'hide-span': msg[0].IdentifyNumberCheck }">{{
+                msg[0].IdentifyNumber
+              }}</span
               ><br />
-              <input type="text" v-model="employee.IdentityNumber" /><br />
+              <input
+                type="text"
+                v-model="employee.IdentityNumber"
+                required
+              /><br />
               <label>Nơi cấp</label><br />
               <input type="text" v-model="employee.IdentityPlace" /><br />
-              <label>Email (<label style="color: red">*</label>)</label><br />
-              <input type="text" v-model="employee.Email" /><br />
+              <label>Email (<label style="color: red">*</label>)</label>
+              <span :class="{ 'hide-span': msg[1].EmailCheck }">{{
+                msg[1].Email
+              }}</span
+              ><br />
+              <input type="text" v-model="employee.Email" required /><br />
               <label class="body-title">B. THÔNG TIN CÔNG VIỆC</label><br />
               <label>Vị trí</label><br />
               <select id="position" v-model="employee.PositionId">
@@ -70,8 +86,11 @@
                 >A. THÔNG TIN CHUNG</label
               ><br />
               <label>Họ và tên (<label style="color: red">*</label>)</label
+              ><span :class="{ 'hide-span': msg[2].FullNameCheck }">{{
+                msg[2].FullName
+              }}</span
               ><br />
-              <input type="text" v-model="employee.FullName" /><br />
+              <input type="text" v-model="employee.FullName" required /><br />
               <label>Giới tính</label><br />
               <select id="gender" v-model="employee.Gender">
                 <option value="1">Nam</option>
@@ -87,8 +106,15 @@
               <label style="visibility: hidden">Nơi cấp</label><br />
               <input style="visibility: hidden" type="text" /><br />
               <label>Số điện thoại (<label style="color: red">*</label>)</label
+              ><span :class="{ 'hide-span': msg[3].PhoneNumberCheck }">{{
+                msg[3].PhoneNumber
+              }}</span
               ><br />
-              <input type="text" v-model="employee.PhoneNumber" /><br />
+              <input
+                type="text"
+                v-model="employee.PhoneNumber"
+                required
+              /><br />
               <label style="visibility: hidden" class="body-title"
                 >B. THÔNG TIN CÔNG VIỆC</label
               ><br />
@@ -146,6 +172,8 @@ export default {
     isShow: { type: Boolean, default: false },
     employee: { type: Object, default: null },
     formMode: { type: String, default: 'add' },
+    msg: { type: Array },
+    afterPostUpdateCheck: { type: Boolean, default: false },
   },
   methods: {
     //Xu ly hien thi du lieu ngay thang len dialog
@@ -164,38 +192,91 @@ export default {
     },
     //Chinh sua/them moi du lieu
     btnSaveOnClick() {
-      if (this.formMode == 'add') {
-        axios
-          .post('http://api.manhnv.net/v1/Employees', this.employee)
-          .then((res) => {
-            console.log('Post du lieu');
-            console.log(res);
-            this.$emit('hideDialog');
-          })
-          .catch((res) => {
-            console.log('Err: Post du lieu');
-            console.log(res);
-          });
+      console.log('check1');
+      if (this.beforePostUpdateCheck == true) {
+        console.log(this.employee.IdentifyNumber);
+        if (
+          this.employee.IdentifyNumber == '' ||
+          this.employee.IdentifyNumber == null
+        ) {
+          this.msg[0].IdentifyNumberCheck = false;
+        } else {
+          this.msg[0].IdentifyNumberCheck = true;
+        }
+        if (this.employee.Email == '' || this.employee.Email == null) {
+          this.msg[1].EmailCheck = false;
+        } else {
+          this.msg[1].EmailCheck = true;
+        }
+        if (this.employee.FullName == '' || this.employee.FullName == null) {
+          this.msg[2].FullNameCheck = false;
+        } else {
+          this.msg[2].FullNameCheck = true;
+        }
+        if (
+          this.employee.PhoneNumber == '' ||
+          this.employee.PhoneNumber == null
+        ) {
+          this.msg[3].PhoneNumberCheck = false;
+        } else {
+          this.msg[3].PhoneNumberCheck = true;
+        }
+        if (
+          this.employee.IdentifyNumber == '' ||
+          this.employee.IdentifyNumber == null ||
+          this.employee.Email == '' ||
+          this.employee.Email == null ||
+          this.employee.FullName == '' ||
+          this.employee.FullName == null ||
+          this.employee.PhoneNumber == '' ||
+          this.employee.PhoneNumber == null
+        ) {
+          this.$emit('changeAfterPostUpdateCheck');
+          console.log(this.afterPostUpdateCheck);
+        } else {
+          this.$emit('changeAfterPostUpdateCheck');
+          console.log('check4');
+        }
+      }
+      if (this.afterPostUpdateCheck == true) {
+        console.log('Chua nhap du du lieu');
       } else {
-        axios
-          .put(
-            'http://api.manhnv.net/v1/Employees/' + this.employee.EmployeeId,
-            this.employee
-          )
-          .then((res) => {
-            console.log('Update du lieu');
-            console.log(res);
-            this.$emit('hideDialog');
-          })
-          .catch((res) => {
-            console.log('Err: Update du lieu');
-            console.log(res);
-          });
+        console.log('check5');
+        if (this.formMode == 'add') {
+          axios
+            .post('http://api.manhnv.net/v1/Employees', this.employee)
+            .then((res) => {
+              console.log('Post du lieu');
+              console.log(res);
+              this.$emit('hideDialog');
+            })
+            .catch((res) => {
+              console.log('Err: Post du lieu');
+              console.log(res);
+            });
+        } else {
+          axios
+            .put(
+              'http://api.manhnv.net/v1/Employees/' + this.employee.EmployeeId,
+              this.employee
+            )
+            .then((res) => {
+              console.log('Update du lieu');
+              console.log(res);
+              this.$emit('hideDialog');
+            })
+            .catch((res) => {
+              console.log('Err: Update du lieu');
+              console.log(res);
+            });
+        }
       }
     },
   },
   data() {
-    return {};
+    return {
+      beforePostUpdateCheck: true,
+    };
   },
 };
 </script>

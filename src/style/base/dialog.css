@@ -54,6 +54,10 @@
     display: none;
 }
 
+.hide-span {
+    display: none;
+}
+
 /* Body */
 .dialog-body {
     position: absolute; 
@@ -64,6 +68,9 @@
     border: 0px;
 }
 
+.dialog-body span{
+    color: red;
+}
 .dialog-form input {
     height: 32px !important;
     width: 181px;

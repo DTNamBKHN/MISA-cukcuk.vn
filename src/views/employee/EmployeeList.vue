@@ -126,8 +126,11 @@
     <EmployeeDetail
       :isShow="isShowDialogDetail"
       @hideDialog="hideDialog"
+      @changeAfterPostUpdateCheck="changeAfterPostUpdateCheck"
       :employee="selectedEmployee"
       :formMode="dialogFormMode"
+      :msg="parentMsg"
+      :afterPostUpdateCheck="parentAfterPostUpdateCheck"
     ></EmployeeDetail>
     <Warning></Warning>
   </div>
@@ -176,7 +179,13 @@ export default {
           this.selectedEmployee = {};
           this.selectedEmployee.EmployeeCode = res.data;
           console.log('An nut them moi nhan vien');
-          console.log(res);
+          console.log(this.selectedEmployee);
+          this.dialogFormMode = 'add';
+          this.parentMsg[0].IdentifyNumberCheck = true;
+          this.parentMsg[1].EmailCheck = true;
+          this.parentMsg[2].FullNameCheck = true;
+          this.parentMsg[3].PhoneNumberCheck = true;
+          this.parentAfterPostUpdateCheck = false;
           this.isShowDialogDetail = true;
         })
         .catch((res) => {
@@ -188,6 +197,9 @@ export default {
     hideDialog() {
       this.isShowDialogDetail = false;
       this.loadData();
+    },
+    changeAfterPostUpdateCheck() {
+      this.parentAfterPostUpdateCheck = !this.parentAfterPostUpdateCheck;
     },
     //Xu ly du lieu ngay thang
     checkDate(date) {
@@ -215,6 +227,11 @@ export default {
       //Cap nhat trang thai cua form
       this.dialogFormMode = 'edit';
       //Hien thi dialog chi tiet
+      this.parentMsg[0].IdentifyNumberCheck = true;
+      this.parentMsg[1].EmailCheck = true;
+      this.parentMsg[2].FullNameCheck = true;
+      this.parentMsg[3].PhoneNumberCheck = true;
+      this.parentAfterPostUpdateCheck = false;
       this.isShowDialogDetail = true;
     },
   },
@@ -224,6 +241,13 @@ export default {
       employees: [],
       selectedEmployee: {},
       isShowDialogDetail: false,
+      parentMsg: [
+        { IdentifyNumber: 'Thiếu', IdentifyNumberCheck: false },
+        { Email: 'Sai định dạng', EmailCheck: false },
+        { FullName: 'Thiếu', FullNameCheck: false },
+        { PhoneNumber: 'Thiếu', PhoneNumberCheck: false },
+      ],
+      parentAfterPostUpdateCheck: false,
     };
   },
 };
