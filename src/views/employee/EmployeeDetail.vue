@@ -204,10 +204,14 @@ export default {
         } else {
           this.msg[0].IdentityNumberCheck = true;
         }
-        if (this.employee.Email == '' || this.employee.Email == null) {
-          this.msg[1].EmailCheck = false;
-        } else {
+        if (
+          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+            this.employee.Email
+          )
+        ) {
           this.msg[1].EmailCheck = true;
+        } else {
+          this.msg[1].EmailCheck = false;
         }
         if (this.employee.FullName == '' || this.employee.FullName == null) {
           this.msg[2].FullNameCheck = false;
@@ -225,8 +229,9 @@ export default {
         if (
           this.employee.IdentityNumber == '' ||
           this.employee.IdentityNumber == null ||
-          this.employee.Email == '' ||
-          this.employee.Email == null ||
+          !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+            this.employee.Email
+          ) ||
           this.employee.FullName == '' ||
           this.employee.FullName == null ||
           this.employee.PhoneNumber == '' ||
