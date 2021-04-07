@@ -40,8 +40,8 @@
               <label
                 >Số CMTND/ Căn cước (<label style="color: red">*</label>)</label
               >
-              <span :class="{ 'hide-span': msg[0].IdentifyNumberCheck }">{{
-                msg[0].IdentifyNumber
+              <span :class="{ 'hide-span': msg[0].IdentityNumberCheck }">{{
+                msg[0].IdentityNumber
               }}</span
               ><br />
               <input
@@ -101,7 +101,7 @@
               <input
                 id="provideDate"
                 type="date"
-                v-model="employee.IdentifyDate"
+                v-model="employee.IdentityDate"
               /><br />
               <label style="visibility: hidden">Nơi cấp</label><br />
               <input style="visibility: hidden" type="text" /><br />
@@ -172,8 +172,6 @@ export default {
     isShow: { type: Boolean, default: false },
     employee: { type: Object, default: null },
     formMode: { type: String, default: 'add' },
-    msg: { type: Array },
-    afterPostUpdateCheck: { type: Boolean, default: false },
   },
   methods: {
     //Xu ly hien thi du lieu ngay thang len dialog
@@ -194,14 +192,17 @@ export default {
     btnSaveOnClick() {
       console.log('check1');
       if (this.beforePostUpdateCheck == true) {
-        console.log(this.employee.IdentifyNumber);
+        console.log(`IdentityNumber: ${this.employee.IdentityNumber}`);
+        console.log(`Email: ${this.employee.Email}`);
+        console.log(`FullName: ${this.employee.FullName}`);
+        console.log(`Phone: ${this.employee.PhoneNumber}`);
         if (
-          this.employee.IdentifyNumber == '' ||
-          this.employee.IdentifyNumber == null
+          this.employee.IdentityNumber == '' ||
+          this.employee.IdentityNumber == null
         ) {
-          this.msg[0].IdentifyNumberCheck = false;
+          this.msg[0].IdentityNumberCheck = false;
         } else {
-          this.msg[0].IdentifyNumberCheck = true;
+          this.msg[0].IdentityNumberCheck = true;
         }
         if (this.employee.Email == '' || this.employee.Email == null) {
           this.msg[1].EmailCheck = false;
@@ -222,8 +223,8 @@ export default {
           this.msg[3].PhoneNumberCheck = true;
         }
         if (
-          this.employee.IdentifyNumber == '' ||
-          this.employee.IdentifyNumber == null ||
+          this.employee.IdentityNumber == '' ||
+          this.employee.IdentityNumber == null ||
           this.employee.Email == '' ||
           this.employee.Email == null ||
           this.employee.FullName == '' ||
@@ -231,10 +232,10 @@ export default {
           this.employee.PhoneNumber == '' ||
           this.employee.PhoneNumber == null
         ) {
-          this.$emit('changeAfterPostUpdateCheck');
+          this.afterPostUpdateCheck = true;
           console.log(this.afterPostUpdateCheck);
         } else {
-          this.$emit('changeAfterPostUpdateCheck');
+          this.afterPostUpdateCheck = false;
           console.log('check4');
         }
       }
@@ -276,6 +277,13 @@ export default {
   data() {
     return {
       beforePostUpdateCheck: true,
+      afterPostUpdateCheck: false,
+      msg: [
+        { IdentityNumber: 'Thiếu', IdentityNumberCheck: true },
+        { Email: 'Sai định dạng', EmailCheck: true },
+        { FullName: 'Thiếu', FullNameCheck: true },
+        { PhoneNumber: 'Thiếu', PhoneNumberCheck: true },
+      ],
     };
   },
 };
