@@ -28,10 +28,17 @@
               <input type="text" v-model="employee.EmployeeCode" /><br />
               <label>Ngày sinh</label><br />
               <input
+                v-if="checkDate(employee.DateOfBirth)"
                 id="dtDateOfBirth"
                 type="date"
                 :value="format(employee.DateOfBirth)"
-              /><br />
+              /><input
+                v-if="!checkDate(employee.DateOfBirth)"
+                id="dtDateOfBirth"
+                type="date"
+                value=""
+              />
+              <br />
               <label
                 >Số CMTND/ Căn cước (<label style="color: red">*</label>)</label
               ><br />
@@ -57,6 +64,13 @@
               <input type="text" v-model="employee.PersonalTaxCode" /><br />
               <label>Ngày gia nhập công ty</label><br />
               <input
+                v-if="!checkDate(employee.JoinDate)"
+                id="participateDay"
+                type="date"
+                value=""
+              />
+              <input
+                v-if="checkDate(employee.JoinDate)"
                 id="participateDay"
                 type="date"
                 :value="format(employee.JoinDate)"
@@ -79,6 +93,13 @@
               ><br />
               <label>Ngày cấp</label><br />
               <input
+                v-if="!checkDate(employee.IdentifyDate)"
+                id="provideDate"
+                type="date"
+                value=""
+              />
+              <input
+                v-if="checkDate(employee.IdentifyDate)"
                 id="provideDate"
                 type="date"
                 :value="format(employee.IdentifyDate)"
@@ -167,10 +188,12 @@ export default {
         axios
           .post('http://api.manhnv.net/v1/Employees', this.employee)
           .then((res) => {
+            console.log('Post du lieu');
             console.log(res);
             this.$emit('hideDialog');
           })
           .catch((res) => {
+            console.log('Err: Post du lieu');
             console.log(res);
           });
       } else {
@@ -180,10 +203,12 @@ export default {
             this.employee
           )
           .then((res) => {
+            console.log('Update du lieu');
             console.log(res);
             this.$emit('hideDialog');
           })
           .catch((res) => {
+            console.log('Err: Update du lieu');
             console.log(res);
           });
       }

@@ -160,8 +160,11 @@ export default {
         .get('http://api.manhnv.net/v1/Employees')
         .then((res) => {
           this.employees = res.data;
+          console.log('Thuc hien load lai du lieu');
+          console.log(this.employees);
         })
         .catch((res) => {
+          console.log('Error: Thuc hien load lai du lieu');
           console.log(res);
         });
     },
@@ -190,9 +193,11 @@ export default {
         .get('http://api.manhnv.net/v1/Employees/' + employeeId)
         .then((res) => {
           this.selectedEmployee = res.data;
+          console.log('Nhan dblclcik');
           console.log(this.selectedEmployee);
         })
         .catch((res) => {
+          console.log('Err: Nhan dblclcik');
           console.log(res);
         });
       //Thuc hien binding du lieu len form chi tiet
