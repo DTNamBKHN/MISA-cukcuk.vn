@@ -135,7 +135,19 @@
                 > </select
               ><br />
               <label>Mức lương cơ bản</label><br />
-              <input type="text" v-model="employee.Salary" /><br />
+              <div
+                @click="showSalaryInput()"
+                :class="{ 'div-hide': salaryDiv }"
+                class="cloneSalary"
+              >
+                {{ this.employee.Salary | formatNumber }}
+              </div>
+              <input
+                @blur="showSalaryDiv()"
+                :class="{ 'div-hide': salaryInput }"
+                type="text"
+                v-model="employee.Salary"
+              /><br />
               <label>Gia đình</label><br />
               <select id="martialStatus" v-model="employee.MartialStatus">
                 <option value="0">Độc thân</option>
@@ -175,6 +187,16 @@ export default {
     formMode: { type: String, default: 'add' },
   },
   methods: {
+    //Hien/An salary input
+    showSalaryInput() {
+      this.salaryDiv = true;
+      this.salaryInput = false;
+    },
+    showSalaryDiv() {
+      this.salaryDiv = false;
+      this.salaryInput = true;
+    },
+    //Auto focus vao Ma nhan vien
     focusOnEmployeeCode() {
       this.$nextTick(function() {
         this.$refs.employeeCode.focus();
@@ -287,6 +309,8 @@ export default {
   },
   data() {
     return {
+      salaryDiv: false,
+      salaryInput: true,
       beforePostUpdateCheck: true,
       afterPostUpdateCheck: false,
       msg: [
@@ -299,4 +323,15 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.cloneSalary {
+  border: 1px solid #bbbbbb;
+  height: 28px;
+  margin-top: 4px;
+  border-radius: 4px;
+  padding: 1px 16px 1px 16px;
+  outline: none;
+  font-size: 13px;
+  vertical-align: middle;
+}
+</style>
