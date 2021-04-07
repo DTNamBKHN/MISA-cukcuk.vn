@@ -147,6 +147,7 @@ export default {
       .get('http://api.manhnv.net/v1/Employees')
       .then((res) => {
         this.employees = res.data;
+        this.selectedEmployee = this.employees[0];
       })
       .catch((res) => {
         console.log(res);
@@ -170,8 +171,18 @@ export default {
     },
     //Hien thi dialog
     btnAddOnClick() {
-      this.selectedEmployee = {};
-      this.isShowDialogDetail = true;
+      axios('http://api.manhnv.net/v1/Employees/NewEmployeeCode')
+        .then((res) => {
+          this.selectedEmployee = {};
+          this.selectedEmployee.EmployeeCode = res.data;
+          console.log('An nut them moi nhan vien');
+          console.log(res);
+          this.isShowDialogDetail = true;
+        })
+        .catch((res) => {
+          console.log('Err: An nut them moi nhan vien');
+          console.log(res);
+        });
     },
     //An dialog
     hideDialog() {
