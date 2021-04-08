@@ -203,7 +203,11 @@
           </div>
         </div>
         <div class="dialog-footer">
-          <button id="btnDestroy" class="btn-default btn-icon destroy">
+          <button
+            id="btnDestroy"
+            class="btn-default btn-icon destroy"
+            @click="btnCloseOnClick()"
+          >
             Hủy
           </button>
           <button
@@ -257,6 +261,11 @@ export default {
     },
     //Goi den phuong thuc hideDialog cua EmployeeList
     btnCloseOnClick() {
+      this.msg[0].IdentityNumberCheck = true;
+      this.msg[1].EmailCheck = true;
+      this.msg[2].FullNameCheck = true;
+      this.msg[3].PhoneNumberCheck = true;
+      this.msg[4].EmployeeCodeCheck = true;
       this.$emit('hideDialog');
     },
     //Chinh sua/them moi du lieu
@@ -346,6 +355,11 @@ export default {
             .then((res) => {
               console.log('Post du lieu');
               console.log(res);
+              this.msg[0].IdentityNumberCheck = true;
+              this.msg[1].EmailCheck = true;
+              this.msg[2].FullNameCheck = true;
+              this.msg[3].PhoneNumberCheck = true;
+              this.msg[4].EmployeeCodeCheck = true;
               this.$emit('hideDialog');
             })
             .catch((res) => {
