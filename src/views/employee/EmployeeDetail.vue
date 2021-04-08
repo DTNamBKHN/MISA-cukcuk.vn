@@ -24,8 +24,12 @@
             <form class="dialog-form">
               <label class="body-title">A. THÔNG TIN CHUNG</label><br />
               <label>Mã nhân viên (<label style="color: red">*</label>)</label
+              ><span :class="{ 'hide-span': msg[4].EmployeeCodeCheck }">{{
+                msg[4].EmployeeCode
+              }}</span
               ><br />
               <input
+                @focus="saveOldEmployeeCode()"
                 tabindex="1"
                 ref="employeeCode"
                 type="text"
@@ -222,6 +226,7 @@ export default {
   props: {
     isShow: { type: Boolean, default: false },
     employee: { type: Object, default: null },
+    employees: { type: Array, default: null },
     formMode: { type: String, default: 'add' },
   },
   methods: {
@@ -255,13 +260,33 @@ export default {
       this.$emit('hideDialog');
     },
     //Chinh sua/them moi du lieu
+    saveOldEmployeeCode() {
+      this.employeeCodeCheck = this.employee.EmployeeCode;
+    },
     btnSaveOnClick() {
       console.log('check1');
       if (this.beforePostUpdateCheck == true) {
+        console.log(`OldCode: ${this.employeeCodeCheck}`);
         console.log(`IdentityNumber: ${this.employee.IdentityNumber}`);
         console.log(`Email: ${this.employee.Email}`);
         console.log(`FullName: ${this.employee.FullName}`);
         console.log(`Phone: ${this.employee.PhoneNumber}`);
+        console.log(`EmployeeCode: ${this.employee.EmployeeCode}`);
+        //Kiem tra trung lap Ma nhan vien
+        var i,
+          checkEmployeeCode = false;
+        for (i = 0; i < this.employees.length; i++) {
+          if (
+            this.employee.EmployeeCode == this.employees[i].EmployeeCode &&
+            this.employeeCodeCheck != this.employee.EmployeeCode
+          ) {
+            checkEmployeeCode = true;
+            break;
+          }
+        }
+        if (checkEmployeeCode == true) {
+          this.msg[4].EmployeeCodeCheck = false;
+        }
         if (
           this.employee.IdentityNumber == '' ||
           this.employee.IdentityNumber == null
@@ -301,7 +326,8 @@ export default {
           this.employee.FullName == '' ||
           this.employee.FullName == null ||
           this.employee.PhoneNumber == '' ||
-          this.employee.PhoneNumber == null
+          this.employee.PhoneNumber == null ||
+          checkEmployeeCode == true
         ) {
           this.afterPostUpdateCheck = true;
           console.log(this.afterPostUpdateCheck);
@@ -347,6 +373,7 @@ export default {
   },
   data() {
     return {
+      employeeCodeCheck: '',
       salaryDiv: false,
       salaryInput: true,
       beforePostUpdateCheck: true,
@@ -356,6 +383,7 @@ export default {
         { Email: 'Sai định dạng', EmailCheck: true },
         { FullName: 'Thiếu', FullNameCheck: true },
         { PhoneNumber: 'Thiếu', PhoneNumberCheck: true },
+        { EmployeeCode: 'Trùng', EmployeeCodeCheck: true },
       ],
     };
   },

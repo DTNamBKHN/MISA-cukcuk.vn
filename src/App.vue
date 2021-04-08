@@ -76,7 +76,7 @@ body {
   src: url('./assets/font/GoogleSans-BoldItalic.otf') format('opentype');
 }
 
-.bg-selected-row {
+.grid tr:active {
   background-color: #f0f0f0;
 }
 </style>

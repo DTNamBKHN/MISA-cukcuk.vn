@@ -129,6 +129,7 @@
       :isShow="isShowDialogDetail"
       @hideDialog="hideDialog"
       :employee="selectedEmployee"
+      :employees="employees"
       :formMode="dialogFormMode"
     ></EmployeeDetail>
     <Warning
