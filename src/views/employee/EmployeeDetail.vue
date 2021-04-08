@@ -26,6 +26,7 @@
               <label>Mã nhân viên (<label style="color: red">*</label>)</label
               ><br />
               <input
+                tabindex="1"
                 ref="employeeCode"
                 type="text"
                 v-model="employee.EmployeeCode"
@@ -33,6 +34,7 @@
               /><br />
               <label>Ngày sinh</label><br />
               <input
+                tabindex="2"
                 id="dtDateOfBirth"
                 type="date"
                 v-model="employee.DateOfBirth"
@@ -46,21 +48,31 @@
               }}</span
               ><br />
               <input
+                tabindex="4"
                 type="text"
                 v-model="employee.IdentityNumber"
                 required
               /><br />
               <label>Nơi cấp</label><br />
-              <input type="text" v-model="employee.IdentityPlace" /><br />
+              <input
+                tabindex="6"
+                type="text"
+                v-model="employee.IdentityPlace"
+              /><br />
               <label>Email (<label style="color: red">*</label>)</label>
               <span :class="{ 'hide-span': msg[1].EmailCheck }">{{
                 msg[1].Email
               }}</span
               ><br />
-              <input type="text" v-model="employee.Email" required /><br />
+              <input
+                tabindex="7"
+                type="text"
+                v-model="employee.Email"
+                required
+              /><br />
               <label class="body-title">B. THÔNG TIN CÔNG VIỆC</label><br />
               <label>Vị trí</label><br />
-              <select id="position" v-model="employee.PositionId">
+              <select tabindex="9" id="position" v-model="employee.PositionId">
                 <option value="148ed882-32b8-218e-9c20-39c2f00615e8"
                   >Nhân viên Marketting</option
                 >
@@ -72,9 +84,14 @@
                 > </select
               ><br />
               <label>Mã số thuế cá nhân</label><br />
-              <input type="text" v-model="employee.PersonalTaxCode" /><br />
+              <input
+                tabindex="11"
+                type="text"
+                v-model="employee.PersonalTaxCode"
+              /><br />
               <label>Ngày gia nhập công ty</label><br />
               <input
+                tabindex="13"
                 id="participateDay"
                 type="date"
                 v-model="employee.JoinDate"
@@ -91,27 +108,38 @@
                 msg[2].FullName
               }}</span
               ><br />
-              <input type="text" v-model="employee.FullName" required /><br />
+              <input
+                tabindex="1"
+                type="text"
+                v-model="employee.FullName"
+                required
+              /><br />
               <label>Giới tính</label><br />
-              <select id="gender" v-model="employee.Gender">
+              <select tabindex="3" id="gender" v-model="employee.Gender">
                 <option value="1">Nam</option>
                 <option value="0">Nữ</option>
                 <option value="2">Không xác định</option> </select
               ><br />
               <label>Ngày cấp</label><br />
               <input
+                tabindex="5"
                 id="provideDate"
                 type="date"
                 v-model="employee.IdentityDate"
               /><br />
               <label style="visibility: hidden">Nơi cấp</label><br />
-              <input style="visibility: hidden" type="text" /><br />
+              <input
+                tabindex="6"
+                style="visibility: hidden"
+                type="text"
+              /><br />
               <label>Số điện thoại (<label style="color: red">*</label>)</label
               ><span :class="{ 'hide-span': msg[3].PhoneNumberCheck }">{{
                 msg[3].PhoneNumber
               }}</span
               ><br />
               <input
+                tabindex="8"
                 type="text"
                 v-model="employee.PhoneNumber"
                 required
@@ -120,7 +148,11 @@
                 >B. THÔNG TIN CÔNG VIỆC</label
               ><br />
               <label>Phòng ban</label><br />
-              <select id="department" v-model="employee.DepartmentId">
+              <select
+                tabindex="10"
+                id="department"
+                v-model="employee.DepartmentId"
+              >
                 <option value="142cb08f-7c31-21fa-8e90-67245e8b283e"
                   >Phòng Marketting</option
                 >
@@ -136,7 +168,7 @@
               ><br />
               <label>Mức lương cơ bản</label><br />
               <div
-                tabindex="1"
+                tabindex="12"
                 @click="showSalaryInput()"
                 :class="{ 'div-hide': salaryDiv }"
                 class="cloneSalary"
@@ -150,7 +182,11 @@
                 v-model="employee.Salary"
               /><br />
               <label>Gia đình</label><br />
-              <select id="martialStatus" v-model="employee.MartialStatus">
+              <select
+                tabindex="14"
+                id="martialStatus"
+                v-model="employee.MartialStatus"
+              >
                 <option value="0">Độc thân</option>
                 <option value="1">Đã có gia đình</option>
                 <option value="2">Sống chung chưa kết hôn</option>
@@ -167,6 +203,7 @@
             Hủy
           </button>
           <button
+            tabindex="15"
             id="btnSave"
             class="btn-default btn-icon save"
             @click="btnSaveOnClick()"
