@@ -48,7 +48,7 @@
       </div>
 
       <button class="btn-refresh" @click="loadData()"></button>
-      <button class="btn-delete"></button>
+      <button class="btn-delete" @click="deleteOnClick()"></button>
     </div>
     <div class="grid">
       <table id="tblListCustomer" class="table" width="100%" border="0">
@@ -71,6 +71,8 @@
             v-for="employee in employees"
             :key="employee.EmployeeId"
             @dblclick="trOnDblClick(employee.EmployeeId)"
+            @click="beforeDeleteOnClick(employee.EmployeeId)"
+            :class="{ 'bg-selected-row': onActive }"
           >
             <td>{{ employee.EmployeeCode }}</td>
             <td>{{ employee.FullName }}</td>
@@ -129,7 +131,11 @@
       :employee="selectedEmployee"
       :formMode="dialogFormMode"
     ></EmployeeDetail>
-    <Warning></Warning>
+    <Warning
+      :showWarning="warning"
+      @deleteEmployeeRequest="deleteEmployeeRequest"
+      @destroyRequest="destroyRequest"
+    ></Warning>
   </div>
 </template>
 <script>
@@ -197,6 +203,7 @@ export default {
       }
       return true;
     },
+    //Hien thi thong tin len dialog khi dblclick
     trOnDblClick(employeeId) {
       //Lay id cua ban ghi duoc chon
 
@@ -204,6 +211,7 @@ export default {
       axios
         .get('http://api.manhnv.net/v1/Employees/' + employeeId)
         .then((res) => {
+          this.selectedEmployee = {};
           this.selectedEmployee = res.data;
           console.log('Nhan dblclcik');
           console.log(this.selectedEmployee);
@@ -218,6 +226,47 @@ export default {
       //Hien thi dialog chi tiet
       this.isShowDialogDetail = true;
     },
+    //Chuan bi xoa 1 nhan vien: highlight dong can xoa, luu id cua dong can xoa
+    beforeDeleteOnClick(employeeId) {
+      //this.$el.querySelectorAll('tr').removeClass('bg-selected-row');
+      // this.onActive = !this.onActive;
+      //Lay id cua ban ghi can xoa
+      this.deleteID = employeeId;
+      console.log(`deleteID: ${this.deleteID}`);
+    },
+    //Gui yeu cau xoa ban ghi
+    deleteOnClick() {
+      //Hien thi warning
+      this.warning = true;
+    },
+    //Thuc hien xoa
+    deleteEmployeeRequest() {
+      //Goi api yeu cau xoa nhan vien
+      axios
+        .delete('http://api.manhnv.net/v1/Employees/' + this.deleteID)
+        .then((res) => {
+          console.log('Xoa thanh cong');
+          console.log(res);
+          //Cap nhat trang thai cua form
+          this.loadData();
+          //Dong warning
+          this.warning = false;
+          //Bo background color
+          this.onActive = false;
+        })
+        .catch((res) => {
+          console.log('Err: xoa');
+          console.log(res);
+        });
+    },
+    destroyRequest() {
+      //Dong warning
+      this.warning = false;
+      //load  lai Data
+      this.loadData();
+      // //Bo background color
+      //     this.onActive = false;
+    },
   },
   data() {
     return {
@@ -225,6 +274,9 @@ export default {
       employees: [],
       selectedEmployee: {},
       isShowDialogDetail: false,
+      warning: false,
+      onActive: false,
+      deleteID: '',
     };
   },
 };

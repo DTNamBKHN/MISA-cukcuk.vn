@@ -1,11 +1,17 @@
 <template>
   <div>
-    <div id="dlgWarning" class="dialog dialog-hide">
+    <div
+      id="dlgWarning"
+      class="dialog"
+      :class="{ 'dialog-hide': !showWarning }"
+    >
       <div class="model"></div>
       <div class="dialog-content">
         <div class="dialog-header">
           <div class="dialog-title">Xóa bản ghi</div>
-          <div class="dialog-close-button">&#x2715;</div>
+          <div class="dialog-close-button" @click="btnCloseOnClick()">
+            &#x2715;
+          </div>
         </div>
         <div class="dialog-body">
           <div class="warning-img"></div>
@@ -14,10 +20,14 @@
           </div>
         </div>
         <div class="dialog-footer">
-          <button id="btnDestroy" class="btn-default destroy">
+          <button id="btnDestroy" class="btn-default destroy" @click="cancel()">
             Hủy
           </button>
-          <button id="btnDelete" class="btn-default delete">
+          <button
+            id="btnDelete"
+            class="btn-default delete"
+            @click="deleteEmployee()"
+          >
             Xóa
           </button>
         </div>
@@ -26,7 +36,27 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    showWarning: { type: Boolean, default: false },
+  },
+  methods: {
+    //Goi den phuong thuc deleteEmployee cua parent
+    deleteEmployee() {
+      this.$emit('deleteEmployeeRequest');
+    },
+    cancel() {
+      this.$emit('destroyRequest');
+    },
+    //Dong warning
+    btnCloseOnClick() {
+      this.$emit('destroyRequest');
+    },
+  },
+  data() {
+    return {};
+  },
+};
 </script>
 <style scoped>
 .dialog .dialog-content {
