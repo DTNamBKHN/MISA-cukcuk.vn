@@ -1,5 +1,5 @@
 <template>
-  <div @mouseover="focusOnEmployeeCode">
+  <div @mousemove="focusOnEmployeeCode">
     <div
       id="dlgEmployeeDetail"
       class="dialog"
@@ -136,6 +136,7 @@
               ><br />
               <label>Mức lương cơ bản</label><br />
               <div
+                tabindex="1"
                 @click="showSalaryInput()"
                 :class="{ 'div-hide': salaryDiv }"
                 class="cloneSalary"
@@ -325,13 +326,13 @@ export default {
 </script>
 <style scoped>
 .cloneSalary {
-  border: 1px solid #bbbbbb;
-  height: 28px;
-  margin-top: 4px;
-  border-radius: 4px;
-  padding: 1px 16px 1px 16px;
-  outline: none;
-  font-size: 13px;
-  vertical-align: middle;
+  border: 1px solid #bbbbbb !important;
+  height: 28px !important;
+  margin-top: 4px !important;
+  border-radius: 4px !important;
+  padding: 1px 16px 1px 16px !important;
+  outline: none !important;
+  font-size: 13px !important;
+  vertical-align: middle !important;
 }
 </style>
