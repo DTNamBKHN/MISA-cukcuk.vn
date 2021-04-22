@@ -8,6 +8,7 @@
     /* background-color: yellow; */
     /* padding-left:  24px; */
     padding: 24px;
+    overflow: hidden;
 }
 
 #content .paging-bar {
