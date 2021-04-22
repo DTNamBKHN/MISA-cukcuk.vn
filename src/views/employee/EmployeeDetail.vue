@@ -369,6 +369,8 @@ export default {
 .cloneSalary {
   border: 1px solid #bbbbbb !important;
   height: 28px !important;
+  /* center text in div tag */
+  line-height: 28px;
   margin-top: 4px !important;
   border-radius: 4px !important;
   padding: 1px 16px 1px 16px !important;
