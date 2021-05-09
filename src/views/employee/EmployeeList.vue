@@ -76,17 +76,17 @@
           >
             <td>{{ employee.EmployeeCode }}</td>
             <td>{{ employee.FullName }}</td>
-            <td>{{ employee.GenderName }}</td>
+            <td>{{ employee.Gender }}</td>
             <td v-if="checkDate(employee.DateOfBirth)">
               {{ new Date(employee.DateOfBirth) | dateFormat('DD.MM.YYYY') }}
             </td>
             <td v-if="!checkDate(employee.DateOfBirth)">Không có dữ liệu</td>
-            <td>{{ employee.PhoneNumber }}</td>
+            <td>{{ employee.MobilePhoneNumber }}</td>
             <td>{{ employee.Email }}</td>
-            <td>{{ employee.PositionName }}</td>
-            <td>{{ employee.DepartmentName }}</td>
-            <td>{{ employee.Salary | formatNumber }}</td>
-            <td>{{ employee.MartialStatusName }}</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
           </tr>
         </tbody>
       </table>
@@ -151,7 +151,7 @@ export default {
   created() {
     //load du lieu cho trang
     axios
-      .get('http://api.manhnv.net/v1/Employees')
+      .get('https://localhost:44369/api/v1/Employees')
       .then((res) => {
         this.employees = res.data;
         this.selectedEmployee = this.employees[0];
