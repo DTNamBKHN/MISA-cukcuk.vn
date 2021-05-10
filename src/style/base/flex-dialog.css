@@ -1,0 +1,131 @@
+.flex-dialog {
+  overflow: auto !important;
+}
+
+.flex-dialog .flex-model {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000;
+  opacity: .4;
+}
+
+.flex-dialog .flex-dialog-content {
+  padding: 24px 24px 0px 24px;
+  position: absolute;
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  width: 647px;
+  height: 500px;
+  overflow: hidden;
+  border-radius: 4px;
+  background-color: #ffffff;
+  /* padding-bottom: 60px; */
+}
+
+
+.dialog-hide {
+  display: none;
+}
+
+/* Header */
+.flex-dialog .flex-dialog-header {
+  margin-bottom: 24px;
+}
+/* -----------------------left header----------------------- */
+.flex-dialog .flex-left-header{
+  display: flex;
+  align-items: center;
+}
+
+.flex-left-header .flex-dialog-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.flex-left-header .flex-dialog-checkbox{
+  margin-right: 8px;
+}
+
+.flex-dialog .flex-dialog-close-button {
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 0 4px 0 4px;
+}
+
+.flex-dialog .flex-dialog-close-button:hover {
+  background-color: #bbb;
+  cursor: pointer;
+}
+/* --------------------------------Body-------------------------------- */
+.flex-dialog-body{
+  width: 100%;
+  height: 391px;
+  background-color: yellow;
+  margin: 0px;
+  border: 0px;
+}
+
+.flex-dialog-body input,select{
+  height: 30px !important;
+}
+
+/* -----------------Top body----------------- */
+.flex-top-body{
+  display: flex;
+  width: 100%;
+  height: 48%;
+  background-color: red;
+}
+/* -----------------------------Top left body----------------------------- */
+.flex-top-left-body{
+  width: 45%;
+  height: 100%;
+  background-color: orange;
+}
+
+.top-left-row-1{
+  display: flex;
+}
+
+.top-left-row-1-a{
+  flex: 1 1 30%;
+  margin-right: 4px;
+}
+
+.top-left-row-1-b {
+  flex: 1 1 70%;
+  margin-right: 4px;
+}
+
+.top-left-row-2{
+  margin-right: 4px;
+}
+/* -----------------------------Top right body----------------------------- */
+.flex-top-right-body {
+  width: 55%;
+  height: 100%;
+  background-color: bisque;
+}
+/* -----------------------------Bottom body----------------------------- */
+.flex-bottom-body{
+  width: 100%;
+  height: 48%;
+  background-color: whitesmoke;
+}
+/* --------------------------Footer-------------------------- */
+.flex-dialog-footer{
+  width: 100%;
+  height: 60px;
+  background-color: olive;
+}

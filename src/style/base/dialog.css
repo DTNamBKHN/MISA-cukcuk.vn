@@ -15,10 +15,10 @@
         padding: 24px;
         position: absolute;
         top: 50%;
-        left: 50%;
+        left: 42%;
         transform: translate(-50%,-50%);
         width: 600px;
-        min-height: 650px;
+        height: 500px;
         overflow: hidden;
         border-radius: 4px;
         background-color: #ffffff;

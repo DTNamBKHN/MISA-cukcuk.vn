@@ -32,9 +32,7 @@
     cursor: pointer;
     outline: none;
     border-radius: 4px;
-    background-image: url('../../assets/icon/refresh.png');
-    background-repeat:no-repeat;
-    background-size: auto;
+    background: url('../../assets/icon/Sprites.64af8f61.svg') no-repeat -425px -201px;
     background-position: center;
 }
 
@@ -58,11 +56,11 @@
         background-color: rgb(236, 71, 71);
     }
 
-.btn-icon {
+/* .btn-icon {
     background-image: url('../../assets/icon/add.png');
     background-repeat: no-repeat;
     background-position-y: center;
     background-position-x: 16px;
     background-size: 20px;
     padding-left: 44px;
-}
+} */

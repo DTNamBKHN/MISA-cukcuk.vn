@@ -16,7 +16,7 @@
 }
 
 .paging-bar {
-    border-top: 5px solid #bbbbbb;
+    border-top: 1px solid #bbbbbb;
     position: relative;
     display: flex;
     align-items: center;

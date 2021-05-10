@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="page-title">
-      <div class="page-left">Danh sách nhân viên</div>
+      <div class="page-left">Nhân viên</div>
       <div class="page-right">
         <button
           id="btnAdd"
           class="btn-default btn-icon"
           @click="btnAddOnClick()"
         >
-          Thêm nhân viên
+          Thêm mới nhân viên
         </button>
       </div>
     </div>
@@ -17,63 +17,38 @@
         type="text"
         class="input-search"
         style="width: 310px"
-        placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại"
+        placeholder="Tìm theo mã, tên nhân viên"
       />
-      <div class="dropdown-box dropdown-box-room">
-        <div class="dropdown">
-          <button class="dropbtn">
-            Tất cả phòng ban
-          </button>
-          <div class="dropdown-content">
-            <a href="#">Random text</a>
-            <a href="#">Random text</a>
-            <a href="#">Random text</a>
-          </div>
-        </div>
-        <div class="dropdown-icon"></div>
-      </div>
-
-      <div class="dropdown-box dropdown-box-position">
-        <div class="dropdown">
-          <button class="dropbtn">
-            Tất cả vị trí
-          </button>
-          <div class="dropdown-content">
-            <a href="#">Random text</a>
-            <a href="#">Random text</a>
-            <a href="#">Random text</a>
-          </div>
-        </div>
-        <div class="dropdown-icon"></div>
-      </div>
 
       <button class="btn-refresh" @click="loadData()"></button>
-      <button class="btn-delete" @click="deleteOnClick()"></button>
     </div>
     <div class="grid">
       <table id="tblListCustomer" class="table" width="100%" border="0">
         <thead>
           <tr>
+            <th><input type="checkbox" /></th>
             <th>Mã nhân viên</th>
-            <th>Họ và tên</th>
+            <th>Tên nhân viên</th>
             <th>Giới tính</th>
             <th>Ngày sinh</th>
-            <th>Điện thoại</th>
-            <th>Email</th>
-            <th>Chức vụ</th>
-            <th>Phòng ban</th>
-            <th>Mức lương cơ bản</th>
-            <th>Gia đình</th>
+            <th>Số CMND</th>
+            <th>Chức danh</th>
+            <th>Tên đơn vị</th>
+            <th>Số tài khoản</th>
+            <th>Tên ngân hàng</th>
+            <th>Chi nhánh ngân hàng</th>
+            <th>Chức năng</th>
           </tr>
         </thead>
         <tbody>
-          <tr
+          <!-- <tr
             v-for="employee in employees"
             :key="employee.EmployeeId"
             @dblclick="trOnDblClick(employee.EmployeeId)"
             @click="beforeDeleteOnClick(employee.EmployeeId)"
             :class="{ 'bg-selected-row': onActive }"
           >
+            <td><input type="checkbox" /></td>
             <td>{{ employee.EmployeeCode }}</td>
             <td>{{ employee.FullName }}</td>
             <td>{{ employee.Gender }}</td>
@@ -87,6 +62,32 @@
             <td>ex</td>
             <td>ex</td>
             <td>ex</td>
+          </tr> -->
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>ex</td>
+            <td>
+              <div class="function-dropdown-box">
+                <div class="function-dropdown">
+                  <a class="function-dropbtn">Sửa</a>
+                  <div class="function-dropdown-content">
+                    <a href="#">Nhân bản</a>
+                    <a href="#">Xóa</a>
+                    <a href="#">Ngưng sử dụng</a>
+                  </div>
+                </div>
+                <div class="dropdown-icon"></div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -94,9 +95,9 @@
     <div class="paging">
       <div data-v-a72348a4="" class="paging-bar">
         <div data-v-a72348a4="" class="paging-record-info">
-          Hiển thị <b data-v-a72348a4="">1-10/1000</b> nhân viên
+          Tổng số:<b data-v-a72348a4=""> 1035</b> bản ghi
         </div>
-        <div data-v-a72348a4="" class="paging-option">
+        <!-- <div data-v-a72348a4="" class="paging-option">
           <div data-v-a72348a4="" class="btn-select-page m-btn-firstpage">
             <img src="../../assets/icon/btn-firstpage.svg" />
           </div>
@@ -122,6 +123,21 @@
         </div>
         <div data-v-a72348a4="" class="paging-record-option">
           <b data-v-a72348a4="">10</b> nhân viên/trang
+        </div> -->
+        <div class="dropdown-box dropdown-box-room">
+          <div class="dropdown">
+            <button class="dropbtn">
+              10 bản ghi trên một trang
+            </button>
+            <div class="dropdown-content">
+              <a href="#">10 bản ghi trên một trang</a>
+              <a href="#">20 bản ghi trên một trang</a>
+              <a href="#">30 bản ghi trên một trang</a>
+              <a href="#">50 bản ghi trên một trang</a>
+              <a href="#">100 bản ghi trên một trang</a>
+            </div>
+          </div>
+          <div class="dropdown-icon"></div>
         </div>
       </div>
     </div>
@@ -178,19 +194,20 @@ export default {
     },
     //Hien thi dialog
     btnAddOnClick() {
-      axios('http://api.manhnv.net/v1/Employees/NewEmployeeCode')
-        .then((res) => {
-          this.selectedEmployee = {};
-          this.selectedEmployee.EmployeeCode = res.data;
-          console.log('An nut them moi nhan vien');
-          console.log(res);
-          this.dialogFormMode = 'add';
-          this.isShowDialogDetail = true;
-        })
-        .catch((res) => {
-          console.log('Err: An nut them moi nhan vien');
-          console.log(res);
-        });
+      // axios('http://api.manhnv.net/v1/Employees/NewEmployeeCode')
+      //   .then((res) => {
+      //     this.selectedEmployee = {};
+      //     this.selectedEmployee.EmployeeCode = res.data;
+      //     console.log('An nut them moi nhan vien');
+      //     console.log(res);
+      //     this.dialogFormMode = 'add';
+      //     this.isShowDialogDetail = true;
+      //   })
+      //   .catch((res) => {
+      //     console.log('Err: An nut them moi nhan vien');
+      //     console.log(res);
+      //   });
+      this.isShowDialogDetail = true;
     },
     //An dialog
     hideDialog() {
@@ -316,6 +333,7 @@ export default {
   bottom: 60px;
   top: 128px;
   overflow-y: auto;
+  overflow: hidden;
 }
 
 .paging {
@@ -347,5 +365,15 @@ export default {
 .m-row input,
 select {
   margin-top: 4px;
+}
+
+.paging .dropdown-box-room {
+  width: 215px;
+  position: relative;
+}
+
+.dropdown-box-room .dropdown-content {
+  position: absolute;
+  top: -205px;
 }
 </style>

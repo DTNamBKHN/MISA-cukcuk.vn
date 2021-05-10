@@ -25,6 +25,7 @@ export default {
 @import './style/base/button.css';
 @import './style/base/combobox.css';
 @import './style/base/dialog.css';
+@import './style/base/flex-dialog.css';
 @import './style/base/icon.css';
 @import './style/base/input.css';
 @import './style/base/table.css';
