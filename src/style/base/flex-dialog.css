@@ -108,6 +108,7 @@
 
 .top-left-row-1-b {
   flex: 1 1 70%;
+  position: relative;
 }
 
 .top-left-row-2{
@@ -219,4 +220,18 @@
 .flex-dialog-footer .destroy:hover {
   background-color: #019160;
   color: #FFFFFF;
+}
+
+/* ---------------------Validate--------------------- */
+.validate{
+  color: rgb(179, 175, 175);
+  font-size: 10px;
+  background-color: black;
+  padding: 4px;
+  position: absolute;
+  top: 43px;
+}
+
+.hide-span {
+  display: none;
 }

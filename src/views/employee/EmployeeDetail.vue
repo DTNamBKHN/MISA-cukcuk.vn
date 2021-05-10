@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="dlgEmployeeDetail" class="flex-dialog">
+    <div id="dlgEmployeeDetail" class="flex-dialog dialog-hide">
       <div class="flex-model"></div>
       <div class="flex-dialog-content">
         <div class="flex-dialog-header">
@@ -31,6 +31,8 @@
                   </div>
                   <div class="top-left-row-1-b">
                     <label>Tên <label style="color: red">*</label></label
+                    ><span class="validate hide-span"
+                      >Tên không được phép để trống</span
                     ><br />
                     <input type="text" />
                   </div>

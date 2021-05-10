@@ -153,16 +153,19 @@
       @deleteEmployeeRequest="deleteEmployeeRequest"
       @destroyRequest="destroyRequest"
     ></Warning>
+    <CodeWarning> </CodeWarning>
   </div>
 </template>
 <script>
 import EmployeeDetail from './EmployeeDetail.vue';
 import Warning from '../warning/Warning.vue';
+import CodeWarning from '../warning/CodeWarning.vue';
 import axios from 'axios';
 export default {
   components: {
     EmployeeDetail,
     Warning,
+    CodeWarning,
   },
   created() {
     //load du lieu cho trang
