@@ -5,7 +5,7 @@
       <div class="flex-dialog-content">
         <div class="flex-dialog-header">
           <div class="flex-left-header">
-            <div class="flex-dialog-title">THÔNG TIN NHÂN VIÊN</div>
+            <div class="flex-dialog-title">Thông tin nhân viên</div>
             <div class="flex-dialog-checkbox">
               <input type="checkbox" /><label>Là khách hàng</label>
             </div>
@@ -36,21 +36,115 @@
                   </div>
                 </div>
                 <div class="top-left-row-2">
-                  <label>Đơn vị</label>
+                  <label>Đơn vị <label style="color: red">*</label></label>
                   <select>
                     <option>Phòng nhân sự</option>
                     <option>Phòng nhân sự</option>
                     <option>Phòng nhân sự</option>
                   </select>
                 </div>
+                <div class="top-left-row-3">
+                  <label>Chức danh</label>
+                  <input type="text" />
+                </div>
               </form>
             </div>
-            <div class="flex-top-right-body"></div>
+            <div class="flex-top-right-body">
+              <form class="flex-dialog-form">
+                <div class="top-right-row-1">
+                  <div class="top-right-row-1-a">
+                    <label>Ngày sinh</label>
+                    <input type="date" />
+                  </div>
+                  <div class="top-right-row-1-b">
+                    <label style="display:block">Giới tính</label><br />
+                    <div class="top-right-row-1-b-child">
+                      <input
+                        type="radio"
+                        id="male"
+                        name="gender"
+                        value="male"
+                      />
+                      <label for="male">Nam</label>
+                      <input
+                        type="radio"
+                        id="female"
+                        name="gender"
+                        value="female"
+                      />
+                      <label for="female">Nữ</label>
+                      <input
+                        type="radio"
+                        id="other"
+                        name="gender"
+                        value="other"
+                      />
+                      <label for="other">Khác</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="top-right-row-2">
+                  <div class="top-right-row-2-a">
+                    <label>Số CMND</label>
+                    <input type="text" />
+                  </div>
+                  <div class="top-right-row-2-b">
+                    <label>Ngày cấp</label>
+                    <input type="date" />
+                  </div>
+                </div>
+                <div class="top-right-row-3">
+                  <label>Nơi cấp</label>
+                  <input type="text" />
+                </div>
+              </form>
+            </div>
           </div>
-
-          <div class="flex-bottom-body"></div>
+          <div class="flex-bottom-body">
+            <form class="flex-dialog-form">
+              <div class="bottom-row-1">
+                <label>Địa chỉ</label>
+                <input type="text" />
+              </div>
+              <div class="bottom-row-2">
+                <div class="bottom-row-2-a">
+                  <label>ĐT di động</label>
+                  <input type="text" />
+                </div>
+                <div class="bottom-row-2-b">
+                  <label>ĐT cố định</label>
+                  <input type="text" />
+                </div>
+                <div class="bottom-row-2-c">
+                  <label>Email</label>
+                  <input type="text" />
+                </div>
+              </div>
+              <div class="bottom-row-2">
+                <div class="bottom-row-2-a">
+                  <label>Tài khoản ngân hàng</label>
+                  <input type="text" />
+                </div>
+                <div class="bottom-row-2-b">
+                  <label>Tên ngân hàng</label>
+                  <input type="text" />
+                </div>
+                <div class="bottom-row-2-c">
+                  <label>Chi nhánh</label>
+                  <input type="text" />
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="flex-dialog-footer"></div>
+        <div class="flex-dialog-footer">
+          <button id="btnDestroy" class="btn-default btn-icon destroy">
+            Hủy
+          </button>
+          <button id="btnSave" class="btn-default btn-icon save">
+            Cất và thêm
+          </button>
+        </div>
       </div>
     </div>
   </div>

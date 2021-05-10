@@ -71,61 +71,152 @@
 .flex-dialog-body{
   width: 100%;
   height: 391px;
-  background-color: yellow;
+  /* background-color: yellow; */
   margin: 0px;
   border: 0px;
 }
 
-.flex-dialog-body input,select{
+/* .flex-dialog-body input,select{
   height: 30px !important;
-}
+} */
 
 /* -----------------Top body----------------- */
 .flex-top-body{
   display: flex;
   width: 100%;
   height: 48%;
-  background-color: red;
+  /* background-color: red; */
 }
 /* -----------------------------Top left body----------------------------- */
 .flex-top-left-body{
   width: 45%;
   height: 100%;
-  background-color: orange;
+  /* background-color: orange; */
 }
-
+ 
+.flex-top-left-body div{
+  margin-right: 4px ;
+  margin-bottom: 2px;
+}
 .top-left-row-1{
   display: flex;
 }
 
 .top-left-row-1-a{
   flex: 1 1 30%;
-  margin-right: 4px;
 }
 
 .top-left-row-1-b {
   flex: 1 1 70%;
-  margin-right: 4px;
 }
 
 .top-left-row-2{
-  margin-right: 4px;
+  margin-right: 8px !important;
+}
+
+.top-left-row-3{
+  margin-right: 8px !important;
 }
 /* -----------------------------Top right body----------------------------- */
 .flex-top-right-body {
   width: 55%;
   height: 100%;
-  background-color: bisque;
+  /* background-color: bisque; */
+}
+
+.flex-top-right-body div {
+  margin-right: 4px;
+  margin-bottom: 2px;
+}
+
+.top-right-row-1{
+  display: flex;
+}
+
+.top-right-row-1-a{
+  flex: 1 1 30%;
+}
+
+.top-right-row-1-b {
+  flex: 1 1 70%;
+}
+
+.top-right-row-1-b-child{
+  display: flex;
+}
+
+.top-right-row-2{
+  display: flex;
+}
+
+.top-right-row-2-a {
+  flex: 1 1 60%;
+}
+
+.top-right-row-2-b {
+  flex: 1 1 40%;
 }
 /* -----------------------------Bottom body----------------------------- */
 .flex-bottom-body{
   width: 100%;
   height: 48%;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
+}
+
+.flex-bottom-body div{
+  margin-right: 4px;
+  margin-bottom: 2px;
+}
+
+.bottom-row-2,
+.bottom-row-3 {
+  display: flex;
+}
+
+.bottom-row-2, 
+.bottom-row-3 input{
+  width: 500px;
+}
+
+/* ----------------------CSS form when hover, focus---------------------- */
+.flex-dialog-form input:hover {
+  cursor: pointer !important;
+  border-color: #019160 !important;
+}
+
+.flex-dialog-form select:hover {
+  cursor: pointer;
+  border-color: #019160;
+}
+
+.flex-dialog-form input:focus,
+.flex-dialog-form select:focus {
+  border: 2px solid rgb(62, 143, 248) !important;
 }
 /* --------------------------Footer-------------------------- */
 .flex-dialog-footer{
   width: 100%;
   height: 60px;
-  background-color: olive;
+  /* background-color: olive; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-top: 1px solid gray;
+}
+
+.flex-dialog-footer button:focus {
+  border: 2px solid rgb(62, 143, 248);
+}
+
+.flex-dialog-footer .destroy {
+  background-color: white;
+  border: 1px solid gray;
+  color: black;
+  background-image: none;
+  margin-right: 10px;
+}
+
+.flex-dialog-footer .destroy:hover {
+  background-color: #019160;
+  color: #FFFFFF;
 }
