@@ -18,6 +18,8 @@
         class="input-search"
         style="width: 310px"
         placeholder="Tìm theo mã, tên nhân viên"
+        v-model="search_string"
+        @keyup.enter="search()"
       />
 
       <button class="btn-refresh" @click="loadData()"></button>
@@ -315,9 +317,20 @@ export default {
       // //Bo background color
       //     this.onActive = false;
     },
+    search() {
+      axios
+        .get(
+          'https://localhost:44369/api/v1/Employees/search/' +
+            this.search_string
+        )
+        .then((res) => {
+          this.employees = res.data;
+        });
+    },
   },
   data() {
     return {
+      search_string: '',
       dialogFormMode: 'add',
       employees: [],
       selectedEmployee: {},
