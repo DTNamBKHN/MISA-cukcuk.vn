@@ -103,11 +103,11 @@
 }
 
 .top-left-row-1-a{
-  flex: 1 1 30%;
+  flex: 1 1 40%;
 }
 
 .top-left-row-1-b {
-  flex: 1 1 70%;
+  flex: 1 1 60%;
   position: relative;
 }
 

@@ -60,7 +60,7 @@
                 </div>
                 <div class="top-left-row-3">
                   <label>Chức danh</label>
-                  <input type="text" />
+                  <input type="text" v-model="employee.employeePosition" />
                 </div>
               </form>
             </div>
@@ -69,7 +69,22 @@
                 <div class="top-right-row-1">
                   <div class="top-right-row-1-a">
                     <label>Ngày sinh</label>
-                    <input type="date" />
+                    <input
+                      @blur="showDateDiv()"
+                      :class="{ 'div-hide': dateInput }"
+                      type="date"
+                      v-model="employee.dateOfBirth"
+                    />
+                    <div
+                      @click="showDateInput()"
+                      :class="{ 'div-hide': dateDiv }"
+                      class="cloneDate"
+                    >
+                      {{
+                        new Date(this.employee.dateOfBirth)
+                          | dateFormat('DD.MM.YYYY')
+                      }}
+                    </div>
                   </div>
                   <div class="top-right-row-1-b">
                     <label style="display:block">Giới tính</label><br />
@@ -78,21 +93,24 @@
                         type="radio"
                         id="male"
                         name="gender"
-                        value="male"
+                        value="1"
+                        v-model="employee.gender"
                       />
                       <label for="male">Nam</label>
                       <input
                         type="radio"
                         id="female"
                         name="gender"
-                        value="female"
+                        value="0"
+                        v-model="employee.gender"
                       />
                       <label for="female">Nữ</label>
                       <input
                         type="radio"
                         id="other"
                         name="gender"
-                        value="other"
+                        value="2"
+                        v-model="employee.gender"
                       />
                       <label for="other">Khác</label>
                     </div>
@@ -101,16 +119,31 @@
                 <div class="top-right-row-2">
                   <div class="top-right-row-2-a">
                     <label>Số CMND</label>
-                    <input type="text" />
+                    <input type="text" v-model="employee.identityNumber" />
                   </div>
                   <div class="top-right-row-2-b">
                     <label>Ngày cấp</label>
-                    <input type="date" />
+                    <input
+                      @blur="showDateDiv()"
+                      :class="{ 'div-hide': dateInput }"
+                      type="date"
+                      v-model="employee.identityDate"
+                    />
+                    <div
+                      @click="showDateInput()"
+                      :class="{ 'div-hide': dateDiv }"
+                      class="cloneDate"
+                    >
+                      {{
+                        new Date(this.employee.identityDate)
+                          | dateFormat('DD.MM.YYYY')
+                      }}
+                    </div>
                   </div>
                 </div>
                 <div class="top-right-row-3">
                   <label>Nơi cấp</label>
-                  <input type="text" />
+                  <input type="text" v-model="employee.identityPlace" />
                 </div>
               </form>
             </div>
@@ -119,34 +152,34 @@
             <form class="flex-dialog-form">
               <div class="bottom-row-1">
                 <label>Địa chỉ</label>
-                <input type="text" />
+                <input type="text" v-model="employee.address" />
               </div>
               <div class="bottom-row-2">
                 <div class="bottom-row-2-a">
                   <label>ĐT di động</label>
-                  <input type="text" />
+                  <input type="text" v-model="employee.mobilePhoneNumber" />
                 </div>
                 <div class="bottom-row-2-b">
                   <label>ĐT cố định</label>
-                  <input type="text" />
+                  <input type="text" v-model="employee.landlineNumber" />
                 </div>
                 <div class="bottom-row-2-c">
                   <label>Email</label>
-                  <input type="text" />
+                  <input type="text" v-model="employee.email" />
                 </div>
               </div>
               <div class="bottom-row-2">
                 <div class="bottom-row-2-a">
                   <label>Tài khoản ngân hàng</label>
-                  <input type="text" />
+                  <input type="text" v-model="employee.bankAccount" />
                 </div>
                 <div class="bottom-row-2-b">
                   <label>Tên ngân hàng</label>
-                  <input type="text" />
+                  <input type="text" v-model="employee.bankName" />
                 </div>
                 <div class="bottom-row-2-c">
                   <label>Chi nhánh</label>
-                  <input type="text" />
+                  <input type="text" v-model="employee.bankBranch" />
                 </div>
               </div>
             </form>
@@ -176,13 +209,13 @@ export default {
   },
   methods: {
     //Hien/An salary input
-    showSalaryInput() {
-      this.salaryDiv = true;
-      this.salaryInput = false;
+    showDateInput() {
+      this.dateDiv = true;
+      this.dateInput = false;
     },
-    showSalaryDiv() {
-      this.salaryDiv = false;
-      this.salaryInput = true;
+    showDateDiv() {
+      this.dateDiv = false;
+      this.dateInput = true;
     },
     //Auto focus vao Ma nhan vien
     focusOnEmployeeCode() {
@@ -324,8 +357,8 @@ export default {
   data() {
     return {
       employeeCodeCheck: '',
-      salaryDiv: false,
-      salaryInput: true,
+      dateDiv: false,
+      dateInput: true,
       beforePostUpdateCheck: true,
       afterPostUpdateCheck: false,
       msg: [
@@ -340,20 +373,19 @@ export default {
 };
 </script>
 <style scoped>
-.cloneSalary {
+.cloneDate {
   border: 1px solid #bbbbbb !important;
-  height: 28px !important;
-  /* center text in div tag */
-  line-height: 28px;
-  margin-top: 4px !important;
+  height: 39px !important;
+  line-height: 39px;
   border-radius: 4px !important;
-  padding: 1px 16px 1px 16px !important;
+  padding: 0px 16px 0px 16px !important;
   outline: none !important;
   font-size: 13px !important;
-  vertical-align: middle !important;
+  box-sizing: border-box;
+  margin-bottom: 0px;
 }
 
-.cloneSalary:focus {
+.cloneDate:focus {
   border: 2px solid rgb(62, 143, 248);
 }
 </style>
