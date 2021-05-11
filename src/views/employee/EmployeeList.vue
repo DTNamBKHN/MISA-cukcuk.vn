@@ -153,7 +153,7 @@
     <div class="paging">
       <div data-v-a72348a4="" class="paging-bar">
         <div data-v-a72348a4="" class="paging-record-info">
-          Tổng số:<b data-v-a72348a4=""> 1035</b> bản ghi
+          Tổng số:<b data-v-a72348a4=""> {{ totalRow }}</b> bản ghi
         </div>
         <div class="dropdown-box dropdown-box-room">
           <div class="dropdown">
@@ -161,14 +161,31 @@
               10 bản ghi trên một trang
             </button>
             <div class="dropdown-content">
-              <a href="#">10 bản ghi trên một trang</a>
-              <a href="#">20 bản ghi trên một trang</a>
-              <a href="#">30 bản ghi trên một trang</a>
-              <a href="#">50 bản ghi trên một trang</a>
-              <a href="#">100 bản ghi trên một trang</a>
+              <a href="#" v-on:click="rowPerPage = 10"
+                >10 bản ghi trên một trang</a
+              >
+              <a href="#" v-on:click="rowPerPage = 20"
+                >20 bản ghi trên một trang</a
+              >
+              <a href="#" v-on:click="rowPerPage = 30"
+                >30 bản ghi trên một trang</a
+              >
+              <a href="#" v-on:click="rowPerPage = 50"
+                >50 bản ghi trên một trang</a
+              >
+              <a href="#" v-on:click="rowPerPage = 100"
+                >100 bản ghi trên một trang</a
+              >
             </div>
           </div>
           <div class="dropdown-icon"></div>
+        </div>
+        <div class="pagination">
+          <ul>
+            <li>Trước</li>
+            <li v-for="n in parseInt(totalPage)" :key="n">{{ n }}</li>
+            <li>Sau</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -204,6 +221,9 @@ export default {
       .get('https://localhost:44369/api/v1/Employees')
       .then((res) => {
         this.employees = res.data;
+        this.totalRow = this.employees.length;
+        this.totalPage = this.totalRow / this.rowPerPage + 1;
+        this.page = 1;
         this.selectedEmployee = this.employees[0];
         console.log(this.employees[0]);
       })
@@ -219,6 +239,8 @@ export default {
         .get('https://localhost:44369/api/v1/Employees')
         .then((res) => {
           this.employees = res.data;
+          this.totalRow = this.employees.length;
+          this.totalPage = this.totalRow / this.rowPerPage + 1;
           console.log('Thuc hien load lai du lieu');
           console.log(this.employees);
         })
@@ -338,6 +360,10 @@ export default {
       warning: false,
       onActive: false,
       deleteID: '',
+      totalRow: null,
+      rowPerPage: 10,
+      totalPage: null,
+      page: null,
     };
   },
 };
@@ -429,5 +455,22 @@ select {
   .hide-column-1070 {
     display: none;
   }
+}
+
+/* CSS pagination */
+.pagination {
+}
+.pagination ul {
+  display: flex;
+  list-style-type: none;
+}
+
+.pagination li {
+  padding: 5px;
+}
+
+.pagination li:hover {
+  border: 1px solid black;
+  cursor: pointer;
 }
 </style>
