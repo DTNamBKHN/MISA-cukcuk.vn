@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div id="dlgEmployeeDetail" class="flex-dialog dialog-hide">
+    <div
+      id="dlgEmployeeDetail"
+      class="flex-dialog"
+      :class="{ 'dialog-hide': !isShow }"
+    >
       <div class="flex-model"></div>
       <div class="flex-dialog-content">
         <div class="flex-dialog-header">
@@ -14,7 +18,7 @@
             </div>
           </div>
           <div class="flex-right-header">
-            <div class="flex-dialog-close-button">
+            <div class="flex-dialog-close-button" @click="btnCloseOnClick()">
               &#x2715;
             </div>
           </div>
@@ -27,22 +31,31 @@
                   <div class="top-left-row-1-a">
                     <label>Mã <label style="color: red">*</label></label
                     ><br />
-                    <input type="text" />
+                    <input type="text" v-model="employee.employeeCode" />
                   </div>
                   <div class="top-left-row-1-b">
                     <label>Tên <label style="color: red">*</label></label
                     ><span class="validate hide-span"
                       >Tên không được phép để trống</span
                     ><br />
-                    <input type="text" />
+                    <input type="text" v-model="employee.fullName" />
                   </div>
                 </div>
                 <div class="top-left-row-2">
                   <label>Đơn vị <label style="color: red">*</label></label>
-                  <select>
-                    <option>Phòng nhân sự</option>
-                    <option>Phòng nhân sự</option>
-                    <option>Phòng nhân sự</option>
+                  <select v-model="employee.employeeDepartmentId">
+                    <option value="3b880afd-77ba-69c9-6510-dde5fda516a2"
+                      >Executive</option
+                    >
+                    <option value="4fe5ee09-2c89-580a-dc49-fe4bedd9e894"
+                      >Research and Development</option
+                    >
+                    <option value="61e3cc06-6237-222a-7e5b-5b97e23db0bb"
+                      >Manufacturing</option
+                    >
+                    <option value="7461553a-1f2b-56a6-e8c0-f32a102323e6"
+                      >Marketing</option
+                    >
                   </select>
                 </div>
                 <div class="top-left-row-3">
@@ -189,11 +202,6 @@ export default {
     },
     //Goi den phuong thuc hideDialog cua EmployeeList
     btnCloseOnClick() {
-      this.msg[0].IdentityNumberCheck = true;
-      this.msg[1].EmailCheck = true;
-      this.msg[2].FullNameCheck = true;
-      this.msg[3].PhoneNumberCheck = true;
-      this.msg[4].EmployeeCodeCheck = true;
       this.$emit('hideDialog');
     },
     //Chinh sua/them moi du lieu

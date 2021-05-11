@@ -22,7 +22,7 @@
 
       <button class="btn-refresh" @click="loadData()"></button>
     </div>
-    <div class="grid">
+    <div class="grid" style="overflow: scroll;">
       <table id="tblListCustomer" class="table" width="100%" border="0">
         <thead>
           <tr>
@@ -34,9 +34,11 @@
             <th>Số CMND</th>
             <th>Chức danh</th>
             <th>Tên đơn vị</th>
-            <th>Số tài khoản</th>
-            <th>Tên ngân hàng</th>
-            <th>Chi nhánh ngân hàng</th>
+            <th class="hide-column-1070">Số tài khoản</th>
+            <th class="hide-column-1220 hide-column-1070">Tên ngân hàng</th>
+            <th class="hide-column-1220 hide-column-1070">
+              Chi nhánh ngân hàng
+            </th>
             <th>Chức năng</th>
           </tr>
         </thead>
@@ -63,18 +65,60 @@
             <td>ex</td>
             <td>ex</td>
           </tr> -->
-          <tr>
+          <tr
+            v-for="employee in employees"
+            :key="employee.EmployeeId"
+            @dblclick="trOnDblClick(employee.employeeId)"
+          >
             <td><input type="checkbox" /></td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
-            <td>ex</td>
+            <td>{{ employee.employeeCode }}</td>
+            <td>{{ employee.fullName }}</td>
+            <td>{{ employee.gender }}</td>
+            <td v-if="checkDate(employee.dateOfBirth)">
+              {{ new Date(employee.dateOfBirth) | dateFormat('DD.MM.YYYY') }}
+            </td>
+            <td v-if="!checkDate(employee.dateOfBirth)">Không có dữ liệu</td>
+            <td>{{ employee.identityNumber }}</td>
+            <td>{{ employee.employeePosition }}</td>
+            <td
+              v-if="
+                employee.employeeDepartmentId ==
+                  '3b880afd-77ba-69c9-6510-dde5fda516a2'
+              "
+            >
+              Executive
+            </td>
+            <td
+              v-if="
+                employee.employeeDepartmentId ==
+                  '4fe5ee09-2c89-580a-dc49-fe4bedd9e894'
+              "
+            >
+              Research and Development
+            </td>
+            <td
+              v-if="
+                employee.employeeDepartmentId ==
+                  '61e3cc06-6237-222a-7e5b-5b97e23db0bb'
+              "
+            >
+              Manufacturing
+            </td>
+            <td
+              v-if="
+                employee.employeeDepartmentId ==
+                  '7461553a-1f2b-56a6-e8c0-f32a102323e6'
+              "
+            >
+              Marketing
+            </td>
+            <td class="hide-column-1070">{{ employee.bankAccount }}</td>
+            <td class="hide-column-1220 hide-column-1070">
+              {{ employee.bankName }}
+            </td>
+            <td class="hide-column-1220 hide-column-1070">
+              {{ employee.bankBranch }}
+            </td>
             <td>
               <div class="function-dropdown-box">
                 <div class="function-dropdown">
@@ -174,6 +218,7 @@ export default {
       .then((res) => {
         this.employees = res.data;
         this.selectedEmployee = this.employees[0];
+        console.log(this.employees[0]);
       })
       .catch((res) => {
         console.log(res);
@@ -230,7 +275,7 @@ export default {
 
       //Goi api lay thong tin nhan vien
       axios
-        .get('http://api.manhnv.net/v1/Employees/' + employeeId)
+        .get('https://localhost:44369/api/v1/Employees/' + employeeId)
         .then((res) => {
           this.selectedEmployee = {};
           this.selectedEmployee = res.data;
@@ -378,5 +423,16 @@ select {
 .dropdown-box-room .dropdown-content {
   position: absolute;
   top: -205px;
+}
+@media screen and (max-width: 1220px) {
+  .hide-column-1220 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .hide-column-1070 {
+    display: none;
+  }
 }
 </style>
