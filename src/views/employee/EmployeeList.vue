@@ -128,10 +128,16 @@
             <td>
               <div class="function-dropdown-box">
                 <div class="function-dropdown">
-                  <a class="function-dropbtn">Sửa</a>
+                  <a
+                    @click="trOnDblClick(employee.employeeId)"
+                    class="function-dropbtn"
+                    >Sửa</a
+                  >
                   <div class="function-dropdown-content">
                     <a href="#">Nhân bản</a>
-                    <a href="#">Xóa</a>
+                    <a href="#" @click="deleteOnClick(employee.employeeId)"
+                      >Xóa</a
+                    >
                     <a href="#">Ngưng sử dụng</a>
                   </div>
                 </div>
@@ -272,23 +278,20 @@ export default {
       this.isShowDialogDetail = true;
     },
     //Chuan bi xoa 1 nhan vien: highlight dong can xoa, luu id cua dong can xoa
-    beforeDeleteOnClick(employeeId) {
+    deleteOnClick(employeeId) {
       //this.$el.querySelectorAll('tr').removeClass('bg-selected-row');
       // this.onActive = !this.onActive;
       //Lay id cua ban ghi can xoa
       this.deleteID = employeeId;
       console.log(`deleteID: ${this.deleteID}`);
-    },
-    //Gui yeu cau xoa ban ghi
-    deleteOnClick() {
-      //Hien thi warning
+      //Hien thi cảnh báo
       this.warning = true;
     },
     //Thuc hien xoa
     deleteEmployeeRequest() {
       //Goi api yeu cau xoa nhan vien
       axios
-        .delete('http://api.manhnv.net/v1/Employees/' + this.deleteID)
+        .delete('https://localhost:44369/api/v1/Employees/' + this.deleteID)
         .then((res) => {
           console.log('Xoa thanh cong');
           console.log(res);

@@ -61,7 +61,7 @@ export default {
 <style scoped>
 .dialog .dialog-content {
   width: 400px;
-  min-height: 87px;
+  max-height: 87px;
   overflow: hidden;
 }
 .dialog .dialog-title {
