@@ -31,19 +31,23 @@
                   <div class="top-left-row-1-a">
                     <label>Mã <label style="color: red">*</label></label
                     ><br />
-                    <input type="text" v-model="employee.employeeCode" />
+                    <input
+                      type="text"
+                      v-model="employee.employeeCode"
+                      required
+                    />
                   </div>
                   <div class="top-left-row-1-b">
                     <label>Tên <label style="color: red">*</label></label
                     ><span class="validate hide-span"
                       >Tên không được phép để trống</span
                     ><br />
-                    <input type="text" v-model="employee.fullName" />
+                    <input type="text" v-model="employee.fullName" required />
                   </div>
                 </div>
                 <div class="top-left-row-2">
                   <label>Đơn vị <label style="color: red">*</label></label>
-                  <select v-model="employee.employeeDepartmentId">
+                  <select v-model="employee.employeeDepartmentId" required>
                     <option value="3b880afd-77ba-69c9-6510-dde5fda516a2"
                       >Executive</option
                     >
@@ -79,12 +83,19 @@
                       @click="showDateInput()"
                       :class="{ 'div-hide': dateDiv }"
                       class="cloneDate"
+                      v-if="checkDate(this.employee.dateOfBirth)"
                     >
                       {{
                         new Date(this.employee.dateOfBirth)
                           | dateFormat('DD.MM.YYYY')
                       }}
                     </div>
+                    <div
+                      @click="showDateInput()"
+                      :class="{ 'div-hide': dateDiv }"
+                      class="cloneDate"
+                      v-if="!checkDate(this.employee.dateOfBirth)"
+                    ></div>
                   </div>
                   <div class="top-right-row-1-b">
                     <label style="display:block">Giới tính</label><br />
@@ -133,12 +144,19 @@
                       @click="showDateInput()"
                       :class="{ 'div-hide': dateDiv }"
                       class="cloneDate"
+                      v-if="checkDate(this.employee.identityDate)"
                     >
                       {{
                         new Date(this.employee.identityDate)
                           | dateFormat('DD.MM.YYYY')
                       }}
                     </div>
+                    <div
+                      @click="showDateInput()"
+                      :class="{ 'div-hide': dateDiv }"
+                      class="cloneDate"
+                      v-if="!checkDate(this.employee.identityDate)"
+                    ></div>
                   </div>
                 </div>
                 <div class="top-right-row-3">
@@ -189,7 +207,11 @@
           <button id="btnDestroy" class="btn-default btn-icon destroy">
             Hủy
           </button>
-          <button id="btnSave" class="btn-default btn-icon save">
+          <button
+            id="btnSave"
+            class="btn-default btn-icon save"
+            @click="btnSaveOnClick()"
+          >
             Cất và thêm
           </button>
         </div>
@@ -242,118 +264,38 @@ export default {
       this.employeeCodeCheck = this.employee.EmployeeCode;
     },
     btnSaveOnClick() {
-      console.log('check1');
-      if (this.beforePostUpdateCheck == true) {
-        console.log(`OldCode: ${this.employeeCodeCheck}`);
-        console.log(`IdentityNumber: ${this.employee.IdentityNumber}`);
-        console.log(`Email: ${this.employee.Email}`);
-        console.log(`FullName: ${this.employee.FullName}`);
-        console.log(`Phone: ${this.employee.PhoneNumber}`);
-        console.log(`EmployeeCode: ${this.employee.EmployeeCode}`);
-        //Kiem tra trung lap Ma nhan vien
-        var i,
-          checkEmployeeCode = false;
-        for (i = 0; i < this.employees.length; i++) {
-          if (
-            this.employee.EmployeeCode == this.employees[i].EmployeeCode &&
-            this.employeeCodeCheck != this.employee.EmployeeCode
-          ) {
-            checkEmployeeCode = true;
-            break;
-          }
-        }
-        if (checkEmployeeCode == true) {
-          this.msg[4].EmployeeCodeCheck = false;
-        }
-        if (
-          this.employee.IdentityNumber == '' ||
-          this.employee.IdentityNumber == null
-        ) {
-          this.msg[0].IdentityNumberCheck = false;
-        } else {
-          this.msg[0].IdentityNumberCheck = true;
-        }
-        if (
-          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-            this.employee.Email
-          )
-        ) {
-          this.msg[1].EmailCheck = true;
-        } else {
-          this.msg[1].EmailCheck = false;
-        }
-        if (this.employee.FullName == '' || this.employee.FullName == null) {
-          this.msg[2].FullNameCheck = false;
-        } else {
-          this.msg[2].FullNameCheck = true;
-        }
-        if (
-          this.employee.PhoneNumber == '' ||
-          this.employee.PhoneNumber == null
-        ) {
-          this.msg[3].PhoneNumberCheck = false;
-        } else {
-          this.msg[3].PhoneNumberCheck = true;
-        }
-        if (
-          this.employee.IdentityNumber == '' ||
-          this.employee.IdentityNumber == null ||
-          !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
-            this.employee.Email
-          ) ||
-          this.employee.FullName == '' ||
-          this.employee.FullName == null ||
-          this.employee.PhoneNumber == '' ||
-          this.employee.PhoneNumber == null ||
-          checkEmployeeCode == true
-        ) {
-          this.afterPostUpdateCheck = true;
-          console.log(this.afterPostUpdateCheck);
-        } else {
-          this.afterPostUpdateCheck = false;
-          console.log('check4');
-        }
-      }
-      if (this.afterPostUpdateCheck == true) {
-        console.log('Chua nhap du du lieu');
+      if (this.formMode == 'add') {
+        axios
+          .post('https://localhost:44369/api/v1/Employees', this.employee)
+          .then((res) => {
+            console.log('Post du lieu');
+            console.log(res);
+            this.$emit('hideDialog');
+          })
+          .catch((res) => {
+            console.log('Err: Post du lieu');
+            console.log(res);
+          });
       } else {
-        console.log('check5');
-        if (this.formMode == 'add') {
-          axios
-            .post('http://api.manhnv.net/v1/Employees', this.employee)
-            .then((res) => {
-              console.log('Post du lieu');
-              console.log(res);
-              this.msg[0].IdentityNumberCheck = true;
-              this.msg[1].EmailCheck = true;
-              this.msg[2].FullNameCheck = true;
-              this.msg[3].PhoneNumberCheck = true;
-              this.msg[4].EmployeeCodeCheck = true;
-              this.$emit('hideDialog');
-            })
-            .catch((res) => {
-              console.log('Err: Post du lieu');
-              console.log(res);
-            });
-        } else {
-          axios
-            .put(
-              'http://api.manhnv.net/v1/Employees/' + this.employee.EmployeeId,
-              this.employee
-            )
-            .then((res) => {
-              console.log('Update du lieu');
-              console.log(res);
-              this.$emit('hideDialog');
-            })
-            .catch((res) => {
-              console.log('Err: Update du lieu');
-              console.log(res);
-            });
-        }
+        axios
+          .put(
+            'https://localhost:44369/api/v1/Employees/' +
+              this.employee.employeeId,
+            this.employee
+          )
+          .then((res) => {
+            console.log('Update du lieu');
+            console.log(res);
+            this.$emit('hideDialog');
+          })
+          .catch((res) => {
+            console.log('Err: Update du lieu');
+            console.log(res);
+          });
       }
     },
   },
+
   data() {
     return {
       employeeCodeCheck: '',

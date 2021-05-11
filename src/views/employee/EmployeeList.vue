@@ -67,18 +67,24 @@
           </tr> -->
           <tr
             v-for="employee in employees"
-            :key="employee.EmployeeId"
+            :key="employee.employeeId"
             @dblclick="trOnDblClick(employee.employeeId)"
           >
             <td><input type="checkbox" /></td>
             <td>{{ employee.employeeCode }}</td>
             <td>{{ employee.fullName }}</td>
-            <td>{{ employee.gender }}</td>
+            <td v-if="employee.gender == 0">Nữ</td>
+            <td v-if="employee.gender == 1">Nam</td>
+            <td v-if="employee.gender == 2">Không xác định</td>
+            <td v-if="employee.gender == null">Không có dữ liệu</td>
             <td v-if="checkDate(employee.dateOfBirth)">
               {{ new Date(employee.dateOfBirth) | dateFormat('DD.MM.YYYY') }}
             </td>
             <td v-if="!checkDate(employee.dateOfBirth)">Không có dữ liệu</td>
-            <td>{{ employee.identityNumber }}</td>
+            <td v-if="employee.identityNumber != null">
+              {{ employee.identityNumber }}
+            </td>
+            <td v-if="employee.identityNumber == null">Không có dữ liệu</td>
             <td>{{ employee.employeePosition }}</td>
             <td
               v-if="
@@ -141,33 +147,6 @@
         <div data-v-a72348a4="" class="paging-record-info">
           Tổng số:<b data-v-a72348a4=""> 1035</b> bản ghi
         </div>
-        <!-- <div data-v-a72348a4="" class="paging-option">
-          <div data-v-a72348a4="" class="btn-select-page m-btn-firstpage">
-            <img src="../../assets/icon/btn-firstpage.svg" />
-          </div>
-          <div data-v-a72348a4="" class="btn-select-page m-btn-prev-page">
-            <img src="../../assets/icon/btn-prev-page.svg" />
-          </div>
-          <div data-v-a72348a4="" class="m-btn-list-page">
-            <button
-              data-v-a72348a4=""
-              class="btn-pagenumber btn-pagenumber-selected"
-            >
-              1</button
-            ><button data-v-a72348a4="" class="btn-pagenumber">2</button
-            ><button data-v-a72348a4="" class="btn-pagenumber">3</button
-            ><button data-v-a72348a4="" class="btn-pagenumber">4</button>
-          </div>
-          <div data-v-a72348a4="" class="btn-select-page m-btn-next-page">
-            <img src="../../assets/icon/btn-next-page.svg" />
-          </div>
-          <div data-v-a72348a4="" class="btn-select-page m-btn-lastpage">
-            <img src="../../assets/icon/btn-lastpage.svg" />
-          </div>
-        </div>
-        <div data-v-a72348a4="" class="paging-record-option">
-          <b data-v-a72348a4="">10</b> nhân viên/trang
-        </div> -->
         <div class="dropdown-box dropdown-box-room">
           <div class="dropdown">
             <button class="dropbtn">
@@ -229,7 +208,7 @@ export default {
     //load data
     loadData() {
       axios
-        .get('http://api.manhnv.net/v1/Employees')
+        .get('https://localhost:44369/api/v1/Employees')
         .then((res) => {
           this.employees = res.data;
           console.log('Thuc hien load lai du lieu');
@@ -242,19 +221,19 @@ export default {
     },
     //Hien thi dialog
     btnAddOnClick() {
-      // axios('http://api.manhnv.net/v1/Employees/NewEmployeeCode')
-      //   .then((res) => {
-      //     this.selectedEmployee = {};
-      //     this.selectedEmployee.EmployeeCode = res.data;
-      //     console.log('An nut them moi nhan vien');
-      //     console.log(res);
-      //     this.dialogFormMode = 'add';
-      //     this.isShowDialogDetail = true;
-      //   })
-      //   .catch((res) => {
-      //     console.log('Err: An nut them moi nhan vien');
-      //     console.log(res);
-      //   });
+      axios('https://localhost:44369/api/v1/Employees/NewEmployeeCode')
+        .then((res) => {
+          this.selectedEmployee = {};
+          this.selectedEmployee.employeeCode = 'NV-' + res.data;
+          console.log(this.selectedEmployee.employeeCode);
+          console.log('An nut them moi nhan vien');
+          this.dialogFormMode = 'add';
+          this.isShowDialogDetail = true;
+        })
+        .catch((res) => {
+          console.log('Err: An nut them moi nhan vien');
+          console.log(res);
+        });
       this.isShowDialogDetail = true;
     },
     //An dialog
