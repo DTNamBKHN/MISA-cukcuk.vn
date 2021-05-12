@@ -182,9 +182,18 @@
         </div>
         <div class="pagination">
           <ul>
-            <li>Trước</li>
-            <li v-for="n in parseInt(totalPage)" :key="n">{{ n }}</li>
-            <li>Sau</li>
+            <li @click="previousClicked()" :disabled="aaa === true">Trước</li>
+            <li
+              :class="[pageIndex === n ? 'active' : '']"
+              v-for="n in paginateWithDots"
+              :key="n"
+              @click="changePerPage(n)"
+            >
+              {{ n }}
+            </li>
+            <li @click="nextClicked()" :disabled="pageIndex == totalPage">
+              Sau
+            </li>
           </ul>
         </div>
       </div>
@@ -218,14 +227,12 @@ export default {
   created() {
     //load du lieu cho trang
     axios
-      .get('https://localhost:44369/api/v1/Employees')
+      .get('https://localhost:44369/api/v1/Employees/total')
       .then((res) => {
-        this.employees = res.data;
-        this.totalRow = this.employees.length;
-        this.totalPage = this.totalRow / this.rowPerPage + 1;
-        this.page = 1;
-        this.selectedEmployee = this.employees[0];
-        console.log(this.employees[0]);
+        this.totalRow = parseInt(res.data);
+        this.totalPage = Math.ceil(this.totalRow / this.rowPerPage);
+        this.pageIndex = 1;
+        this.loadData();
       })
       .catch((res) => {
         console.log(res);
@@ -236,13 +243,23 @@ export default {
     //load data
     loadData() {
       axios
-        .get('https://localhost:44369/api/v1/Employees')
+        .get(
+          'https://localhost:44369/api/v1/Employees/Paging/' +
+            this.pageIndex +
+            '/' +
+            this.rowPerPage
+        )
         .then((res) => {
           this.employees = res.data;
-          this.totalRow = this.employees.length;
-          this.totalPage = this.totalRow / this.rowPerPage + 1;
+          // this.totalRow = this.employees.length;
+          // this.totalPage = this.totalRow / this.rowPerPage + 1;
           console.log('Thuc hien load lai du lieu');
           console.log(this.employees);
+          this.paginateWithDots = this.pagination(
+            this.pageIndex,
+            this.totalPage
+          );
+          console.log(this.paginateWithDots);
         })
         .catch((res) => {
           console.log('Error: Thuc hien load lai du lieu');
@@ -347,7 +364,66 @@ export default {
         )
         .then((res) => {
           this.employees = res.data;
+        })
+        .catch((res) => {
+          console.log(res);
         });
+    },
+    changePerPage(page) {
+      if (page === '...') {
+        return false;
+      }
+      this.pageIndex = page;
+      this.loadData();
+    },
+    pagination(c, m) {
+      //c = currenpage, m = sum page
+      let delta = 2,
+        range = [],
+        rangeWithDots = [],
+        l;
+
+      range.push(1);
+      for (let i = c - delta; i <= c + delta; i++) {
+        if (i < m && i > 1) {
+          range.push(i);
+        }
+      }
+      range.push(m);
+
+      range.map((val) => {
+        if (l) {
+          if (val - l === 2) {
+            rangeWithDots.push(l + 1);
+          } else if (val - l !== 1) {
+            rangeWithDots.push('...');
+          }
+        }
+        rangeWithDots.push(val);
+        l = val;
+      });
+
+      return rangeWithDots;
+    },
+    previousClicked() {
+      if (this.pageIndex > 1) {
+        this.pageIndex -= 1;
+        this.loadData();
+        console.log(`da click ${this.pageIndex}`);
+        this.aaa = false;
+      } else {
+        this.aaa = true;
+      }
+    },
+    nextClicked() {
+      if (this.pageIndex < this.totalPage) {
+        this.pageIndex += 1;
+        this.loadData();
+        console.log(`da click ${this.pageIndex}`);
+        this.bbb = false;
+      } else {
+        this.bbb = true;
+      }
     },
   },
   data() {
@@ -363,7 +439,10 @@ export default {
       totalRow: null,
       rowPerPage: 10,
       totalPage: null,
-      page: null,
+      pageIndex: null,
+      paginateWithDots: [],
+      aaa: false,
+      bbb: false,
     };
   },
 };
@@ -470,7 +549,11 @@ select {
 }
 
 .pagination li:hover {
-  border: 1px solid black;
+  border: 1px solid rgb(136, 133, 133);
   cursor: pointer;
+}
+
+.active {
+  font-weight: bold;
 }
 </style>
