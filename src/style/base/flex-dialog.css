@@ -223,13 +223,34 @@
 }
 
 /* ---------------------Validate--------------------- */
-.validate{
+.validate-name{
   color: rgb(179, 175, 175);
   font-size: 10px;
   background-color: black;
   padding: 4px;
   position: absolute;
   top: 43px;
+  left: 12px;
+}
+
+.validate-department{
+  color: rgb(179, 175, 175);
+  font-size: 10px;
+  background-color: black;
+  padding: 4px;
+  position: absolute;
+  top: 186px;
+  left: 77px;
+}
+
+.validate-code{
+  color: rgb(179, 175, 175);
+  font-size: 10px;
+  background-color: black;
+  padding: 4px;
+  position: absolute;
+      top: 115px;
+      left: 28px;
 }
 
 .hide-span {

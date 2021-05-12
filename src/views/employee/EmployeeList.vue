@@ -202,7 +202,12 @@
       @deleteEmployeeRequest="deleteEmployeeRequest"
       @destroyRequest="destroyRequest"
     ></Warning>
-    <CodeWarning> </CodeWarning>
+    <CodeWarning
+      :showCodeWarning="codeWarning"
+      @showCodeWarning="showCodeWarning"
+      @destroyCodeWarning="destroyCodeWarning"
+    >
+    </CodeWarning>
   </div>
 </template>
 <script>
@@ -348,6 +353,12 @@ export default {
       // //Bo background color
       //     this.onActive = false;
     },
+    showCodeWarning() {
+      this.codeWarning = true;
+    },
+    destroyCodeWarning() {
+      this.codeWarning = false;
+    },
     search() {
       axios
         .get(
@@ -446,6 +457,7 @@ export default {
       selectedEmployee: {},
       isShowDialogDetail: false,
       warning: false,
+      codeWarning: false,
       onActive: false,
       deleteID: '',
       totalRow: null,

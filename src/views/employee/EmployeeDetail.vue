@@ -30,24 +30,45 @@
                 <div class="top-left-row-1">
                   <div class="top-left-row-1-a">
                     <label>Mã <label style="color: red">*</label></label
+                    ><span
+                      class="validate-code"
+                      :class="{ 'hide-span': hideCodeSpan }"
+                      >Mã không được trống</span
                     ><br />
                     <input
                       type="text"
                       v-model="employee.employeeCode"
                       required
+                      @click="hideCodeSpan = true"
                     />
                   </div>
                   <div class="top-left-row-1-b">
                     <label>Tên <label style="color: red">*</label></label
-                    ><span class="validate hide-span"
+                    ><span
+                      class="validate-name"
+                      :class="{ 'hide-span': hideNameSpan }"
                       >Tên không được phép để trống</span
                     ><br />
-                    <input type="text" v-model="employee.fullName" required />
+                    <input
+                      type="text"
+                      v-model="employee.fullName"
+                      required
+                      @click="hideNameSpan = true"
+                    />
                   </div>
                 </div>
                 <div class="top-left-row-2">
-                  <label>Đơn vị <label style="color: red">*</label></label>
-                  <select v-model="employee.employeeDepartmentId" required>
+                  <label>Đơn vị <label style="color: red">*</label></label
+                  ><span
+                    class="validate-department"
+                    :class="{ 'hide-span': hideDepartmentSpan }"
+                    >Đơn vị không được phép để trống</span
+                  >
+                  <select
+                    v-model="employee.employeeDepartmentId"
+                    required
+                    @click="hideDepartmentSpan = true"
+                  >
                     <option value="3b880afd-77ba-69c9-6510-dde5fda516a2"
                       >Executive</option
                     >
@@ -204,7 +225,11 @@
           </div>
         </div>
         <div class="flex-dialog-footer">
-          <button id="btnDestroy" class="btn-default btn-icon destroy">
+          <button
+            id="btnDestroy"
+            class="btn-default btn-icon destroy"
+            @click="btnCloseOnClick()"
+          >
             Hủy
           </button>
           <button
@@ -258,12 +283,48 @@ export default {
     //Goi den phuong thuc hideDialog cua EmployeeList
     btnCloseOnClick() {
       this.$emit('hideDialog');
+      this.hideNameSpan = true;
     },
     //Chinh sua/them moi du lieu
     saveOldEmployeeCode() {
       this.employeeCodeCheck = this.employee.EmployeeCode;
     },
     btnSaveOnClick() {
+      //Valide data
+      if (
+        this.employee.employeeCode == '' ||
+        this.employee.employeeCode == null
+      ) {
+        console.log('check3');
+        this.hideCodeSpan = false;
+        return;
+      }
+
+      if (this.employee.fullName == '' || this.employee.fullName == null) {
+        console.log('check1');
+        this.hideNameSpan = false;
+        return;
+      }
+
+      if (this.employee.employeeDepartmentId == null) {
+        console.log('check2');
+        this.hideDepartmentSpan = false;
+        return;
+      }
+
+      // axios
+      //   .get(
+      //     'https://localhost:44369/api/v1/Employees/checkcodeexist/' +
+      //       this.employee.employeeCode
+      //   )
+      //   .then((res) => {
+      //     console.log(`KQ check code: ${res.data}`);
+      //     if (parseInt(res.data) == 1) {
+      //       this.$emit('showCodeWarning');
+      //       return;
+      //     }
+      //   });
+
       if (this.formMode == 'add') {
         axios
           .post('https://localhost:44369/api/v1/Employees', this.employee)
@@ -301,6 +362,9 @@ export default {
       employeeCodeCheck: '',
       dateDiv: false,
       dateInput: true,
+      hideNameSpan: true,
+      hideDepartmentSpan: true,
+      hideCodeSpan: true,
       beforePostUpdateCheck: true,
       afterPostUpdateCheck: false,
       msg: [

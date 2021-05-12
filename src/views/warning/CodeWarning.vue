@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex-dialog dialog-hide">
+    <div class="flex-dialog" :class="{ 'dialog-hide': !showCodeWarning }">
       <div class="flex-model"></div>
       <div class="codewarning-content">
         <div class="codewarning-body">
@@ -11,7 +11,11 @@
           </div>
         </div>
         <div class="flex-dialog-footer">
-          <button id="btnDestroy" class="btn-default btn-icon destroy">
+          <button
+            id="btnDestroy"
+            class="btn-default btn-icon destroy"
+            @click="cancel()"
+          >
             Đồng ý
           </button>
         </div>
@@ -19,7 +23,18 @@
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  props: {
+    showCodeWarning: { type: Boolean, default: false },
+  },
+  methods: {
+    cancel() {
+      this.$emit('destroyCodeWarning');
+    },
+  },
+};
+</script>
 <style scoped>
 .codewarning-content {
   padding: 24px 24px 0px 24px;
