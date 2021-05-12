@@ -434,22 +434,27 @@ export default {
     },
     rowPerPage10() {
       this.rowPerPage = 10;
+      this.totalPage = Math.ceil(this.totalRow / this.rowPerPage);
       this.loadData();
     },
     rowPerPage20() {
       this.rowPerPage = 20;
+      this.totalPage = Math.ceil(this.totalRow / this.rowPerPage);
       this.loadData();
     },
     rowPerPage30() {
       this.rowPerPage = 30;
+      this.totalPage = Math.ceil(this.totalRow / this.rowPerPage);
       this.loadData();
     },
     rowPerPage50() {
       this.rowPerPage = 50;
+      this.totalPage = Math.ceil(this.totalRow / this.rowPerPage);
       this.loadData();
     },
     rowPerPage100() {
       this.rowPerPage = 100;
+      this.totalPage = Math.ceil(this.totalRow / this.rowPerPage);
       this.loadData();
     },
   },
