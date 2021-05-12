@@ -158,22 +158,14 @@
         <div class="dropdown-box dropdown-box-room">
           <div class="dropdown">
             <button class="dropbtn">
-              10 bản ghi trên một trang
+              {{ rowPerPage }} bản ghi trên một trang
             </button>
             <div class="dropdown-content">
-              <a href="#" v-on:click="rowPerPage = 10"
-                >10 bản ghi trên một trang</a
-              >
-              <a href="#" v-on:click="rowPerPage = 20"
-                >20 bản ghi trên một trang</a
-              >
-              <a href="#" v-on:click="rowPerPage = 30"
-                >30 bản ghi trên một trang</a
-              >
-              <a href="#" v-on:click="rowPerPage = 50"
-                >50 bản ghi trên một trang</a
-              >
-              <a href="#" v-on:click="rowPerPage = 100"
+              <a href="#" @click="rowPerPage10()">10 bản ghi trên một trang</a>
+              <a href="#" @click="rowPerPage20()">20 bản ghi trên một trang</a>
+              <a href="#" @click="rowPerPage30()">30 bản ghi trên một trang</a>
+              <a href="#" @click="rowPerPage50()">50 bản ghi trên một trang</a>
+              <a href="#" @click="rowPerPage100()"
                 >100 bản ghi trên một trang</a
               >
             </div>
@@ -424,6 +416,26 @@ export default {
       } else {
         this.bbb = true;
       }
+    },
+    rowPerPage10() {
+      this.rowPerPage = 10;
+      this.loadData();
+    },
+    rowPerPage20() {
+      this.rowPerPage = 20;
+      this.loadData();
+    },
+    rowPerPage30() {
+      this.rowPerPage = 30;
+      this.loadData();
+    },
+    rowPerPage50() {
+      this.rowPerPage = 50;
+      this.loadData();
+    },
+    rowPerPage100() {
+      this.rowPerPage = 100;
+      this.loadData();
     },
   },
   data() {
