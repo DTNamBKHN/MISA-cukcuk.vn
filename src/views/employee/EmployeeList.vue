@@ -273,6 +273,8 @@ export default {
           console.log('An nut them moi nhan vien');
           this.dialogFormMode = 'add';
           this.isShowDialogDetail = true;
+          this.totalRow++;
+          this.totalPage = Math.ceil(this.totalRow / this.rowPerPage);
         })
         .catch((res) => {
           console.log('Err: An nut them moi nhan vien');
@@ -339,6 +341,8 @@ export default {
           this.warning = false;
           //Bo background color
           this.onActive = false;
+          this.totalRow--;
+          this.totalPage = Math.ceil(this.totalRow / this.rowPerPage);
         })
         .catch((res) => {
           console.log('Err: xoa');
